@@ -1,0 +1,26 @@
+.upper-menu-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 45px 15px 15px;
+
+    background-color: #3C5166;
+}
+.search-bar-input{
+    width: 500px;
+    height: 35px;
+}
+.user-action-container{
+    color: white;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-action-container > a {
+    font-size: 20px;
+}
