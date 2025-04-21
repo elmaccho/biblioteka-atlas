@@ -6,6 +6,7 @@
     width: 350px;
     min-height: 100vh;
     padding: 30px 40px;
+    transition: 0.3s;
 }
 .side-menu-title{
     width: 100%;
@@ -50,4 +51,24 @@
 .link-button:hover i {
     background-color: #F4EAD5;
     color: #3C5166;
+}
+
+.toggle-menu-btn{
+    display: none;
+    color: white;
+    font-size: 35px;
+}
+
+
+@media screen and (max-width: 1150px) {
+    .side-menu-container{
+        transform: translateX(-100%);
+        position: fixed;
+    }
+    .toggle-menu-btn{
+        display: block;
+    }
+}
+.side-menu-toggle{
+    transform: translateX(0%);
 }

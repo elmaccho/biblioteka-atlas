@@ -1,6 +1,7 @@
-<div class="side-menu-container">
-    <div class="side-menu-title">
+<div class="">
+    <div class="side-menu-title d-flex justify-content-between">
         <h1 class="title"><i class="fa-solid fa-book"></i> Atlas</h1>
+        <button class="toggle-menu-btn"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
     <div class="side-menu-links">

@@ -16,14 +16,14 @@
     <script src="https://kit.fontawesome.com/4798a03daf.js" crossorigin="anonymous"></script>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/side-menu.css', 'resources/css/upper-menu.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/side-menu.css', 'resources/css/upper-menu.css', 'resources/js/side-menu.js'])
 </head>
 
 <body>
 
     <div class="flex w-100">
         {{-- Side Menu (lewa kolumna) --}}
-        <div class="">
+        <div class="side-menu-container">
             <x-side-menu />
         </div>
     
