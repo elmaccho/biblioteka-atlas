@@ -19,22 +19,24 @@
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/side-menu.css', 'resources/css/upper-menu.css', 'resources/js/side-menu.js'])
 </head>
 
-<body>
+<body class="overflow-hidden">
 
-    <div class="flex w-100">
+    <div class="d-flex w-100" style="height: 100vh;">
         {{-- Side Menu (lewa kolumna) --}}
         <div class="side-menu-container">
             <x-side-menu />
         </div>
     
         {{-- Główna zawartość (prawa kolumna) --}}
-        <div class="content-container">
+        <div class="content-container d-flex flex-column flex-grow-1">
             <x-upper-menu />
-            @yield('content')
+            <div class="content-scroll-area flex-grow-1 overflow-auto">
+                @yield('content')
+            </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
