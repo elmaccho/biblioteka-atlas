@@ -1,0 +1,38 @@
+.books-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    row-gap: 80px;
+    justify-items: center;
+}
+.book-card{
+    /* background-color: lightblue; */
+    width: 300px;
+    min-height: 540px;
+}
+.book-image{
+    width: 100%;
+    height: 363px;
+}
+.book-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.book-title{
+    height: 70px;
+}
+.book-author{
+    color: #84898D;
+}
+.book-button{
+    color: white;
+    height: 40px;
+}
+.book-button-reserve{
+    background-color: #674C28;
+}
+.book-button-more{
+    background-color: #F4EAD5;
+    color: #674C28;
+}

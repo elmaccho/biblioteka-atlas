@@ -1,0 +1,12 @@
+.categories-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    row-gap: 40px;
+    justify-items: center;
+    width: 100%;
+}
+.category-link{
+    /* background-color: red; */
+    max-width: 200px;
+}

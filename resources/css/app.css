@@ -2,8 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.main-container{
+    padding: 45px;
+}
 .content-container{
     width: 100%;
+}
+.banner{
+    width: 100%;
+    margin-bottom: 50px;
 }
 
 

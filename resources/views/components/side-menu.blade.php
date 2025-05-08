@@ -1,5 +1,5 @@
-<div class="">
-    <div class="side-menu-title d-flex justify-content-between">
+<div class="d-flex flex-column">
+    <div class="side-menu-title d-flex justify-content-between mb-5">
         <h1 class="title"><i class="fa-solid fa-book"></i> Atlas</h1>
         <button class="toggle-menu-btn"><i class="fa-solid fa-xmark"></i></button>
     </div>
@@ -14,7 +14,7 @@
             </a>
 
             {{-- Kategorie --}}
-            <a class="link-button" href="{{ route('home') }}">
+            <a class="link-button" href="{{ route('kategorie') }}">
                 <i class="fa-solid fa-table-list"></i>
                 <span>Kategorie</span>
             </a>
