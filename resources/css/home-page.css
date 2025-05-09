@@ -28,6 +28,10 @@
 .book-button{
     color: white;
     height: 40px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .book-button-reserve{
     background-color: #674C28;

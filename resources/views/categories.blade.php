@@ -6,7 +6,7 @@
 
         <div class="categories-container">
             @foreach ($kategorie as $kategoria)
-                <a href="#" class="d-flex flex-column align-items-center text-dark text-decoration-none m-3 category-link">
+                <a href="{{ route('kategoria.ksiazki', ['id' => $kategoria->id]) }}" class="d-flex flex-column align-items-center text-dark text-decoration-none m-3 category-link">
                     <i class="fa-solid fa-font-awesome"></i>
                     <p>{{ $kategoria->nazwa }}</p>
                 </a>
