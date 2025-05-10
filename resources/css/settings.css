@@ -1,0 +1,27 @@
+.settings-container{
+    display: flex;
+    justify-content: space-between;
+}
+.user-data-forms, .photo-form{
+    /* padding: 40px 40px 40px 0; */
+}
+.user-data-forms{
+    min-width: 400px;
+    /* background-color: red; */
+}
+.photo-form{
+    min-width: 400px;
+    /* background-color: lightblue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.row > label{
+    padding-left: unset !important;
+}
+.settings-user-image{
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    object-fit: cover;
+}

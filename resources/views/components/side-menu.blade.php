@@ -42,7 +42,7 @@
                 </a>
 
                 {{-- Ustawienia --}}
-                <a class="link-button" href="{{ route('home') }}">
+                <a class="link-button" href="{{ route('ustawienia') }}">
                     <i class="fa-solid fa-gear"></i>
                     <span>Ustawienia</span>
                 </a>

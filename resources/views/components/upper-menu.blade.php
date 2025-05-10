@@ -11,7 +11,12 @@
                 <i class="fa-regular fa-bell text-light"></i>
             </a>
 
-            <div class="dropdown">
+            <div class="dropdown d-flex gap-2">
+                @if ($user->profile_img_src != null)
+                    <img src="{{ asset('storage/user/'.$user->profile_img_src) }}" alt="">    
+                @else
+                    <i class="fa-solid fa-circle-user" style="font-size: 30px"></i>
+                @endif
                 <button class="btn-outline-light dropdown-toggle d-flex align-items-center gap-1" type="button"
                     id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ $user->name }}
