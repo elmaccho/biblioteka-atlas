@@ -13,7 +13,11 @@
                     <div class="flex flex-column">
                         <h3 class="book-title">{{ $ksiazka->tytul }}</h3>
                         <p class="book-author m-0">{{ $ksiazka->autor ? $ksiazka->autor->name : "brak XD" }}</p>
-                        <button class="book-button book-button-reserve mb-2">Zarezerwuj</button>
+                        @if ($user)
+                            <button class="book-button book-button-reserve mb-2">Zarezerwuj</button>
+                        @else
+                            <a href="{{ route('login') }}" class="book-button book-button-reserve mb-2">Zaloguj się by zarezerwować</a>
+                        @endif
                         <a href="{{ route('ksiazka', ['id' => $ksiazka->id]) }}" class="book-button book-button-more">Zobacz więcej</a>
                     </div>
                 </div>
