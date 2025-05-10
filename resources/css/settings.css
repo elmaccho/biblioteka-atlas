@@ -25,3 +25,19 @@
     border-radius: 100%;
     object-fit: cover;
 }
+
+@media screen and (max-width: 880px) {
+    .settings-container{
+        flex-direction: column-reverse;
+    }
+    .user-data-forms{
+        min-width: unset;
+        /* background-color: red; */
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .photo-form{
+        min-width: unset;
+    }
+}

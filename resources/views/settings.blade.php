@@ -40,22 +40,41 @@
                     </div>
                 </form>
             </div>
-            <div class="photo-form">
-                <form action="" class="password-form" >
-                    @csrf
-                    @if ($user->profile_img_src == null)
-                        <img class="settings-user-image mb-4" src="{{ asset('storage/user/default.webp') }}" alt="{{ $user->name }} {{ $user->lastname }}">
-                    @else
-                        <img class="settings-user-image mb-4" src="{{ asset('storage/user/'.$user->profile_img_src) }}" alt="{{ $user->name }} {{ $user->lastname }}">
-                    @endif
-                    <div class="row mb-3">
-                        <input type="file" id="user-image" src="" alt="">
-                    </div>
-                    <div class="row">
-                        <button class="book-button book-button-reserve" type="submit">Zmień zdjęcie</button>
-                    </div>
-                </form>
-            </div>
+<div class="user-photo-form">
+    <form action="" class="photo-form" method="POST" enctype="multipart/form-data">
+        @csrf
+        @if ($user->profile_img_src == null)
+            <img id="preview-image" class="settings-user-image mb-4" src="{{ asset('storage/user/default.webp') }}" alt="{{ $user->name }} {{ $user->lastname }}">
+        @else
+            <img id="preview-image" class="settings-user-image mb-4" src="{{ asset('storage/user/'.$user->profile_img_src) }}" alt="{{ $user->name }} {{ $user->lastname }}">
+        @endif
+
+        <div class="row mb-3">
+            <input type="file" id="user-image" name="avatar" accept="image/*">
+        </div>
+        <div class="row">
+            <button class="book-button book-button-reserve w" type="submit">Zmień zdjęcie</button>
+        </div>
+    </form>
+</div>
         </div>
     </div>
+
+    <script>
+    const input = document.getElementById('user-image');
+    const preview = document.getElementById('preview-image');
+
+    input.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.setAttribute('src', e.target.result);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 @endsection
