@@ -18,9 +18,12 @@ class BookCard extends Component
         $this->ksiazka = $ksiazka;
         $this->user = $user;
 
-        $this->hasReserved = $user ? Rezerwacja::where('ksiazka_id', $ksiazka->id)
-            ->where('user_id', $user->id)
-            ->exists()
+        $this->hasReserved = $user
+            ? Rezerwacja::where('ksiazka_id', $ksiazka->id)
+                ->where('user_id', $user->id)
+                ->whereNull('cancelled_at')
+                ->where('zrealizowano', false)
+                ->exists()
             : false;
     }
 

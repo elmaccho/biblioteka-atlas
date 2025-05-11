@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class RezerwacjaController extends Controller
 {
+    public function index()
+    {
+        $user = auth()->user();
+
+        $rezerwacje = $user->rezerwacje()->with('ksiazka')->latest()->get();
+
+        return view('rezerwacje', compact('rezerwacje'));
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -16,26 +24,24 @@ class RezerwacjaController extends Controller
         $ksiazkaId = $request->input('ksiazka_id');
         $userId = auth()->id();
 
-        // Sprawdzenie, czy użytkownik już zarezerwował tę książkę, a rezerwacja nie została anulowana
-        $istnieje = Rezerwacja::where('user_id', $userId)
+        $maAktywnaRezerwacje = Rezerwacja::where('user_id', $userId)
             ->where('ksiazka_id', $ksiazkaId)
-            ->whereNull('cancelled_at') // Rezerwacja nie może być anulowana
+            ->whereNull('cancelled_at')
             ->where('zrealizowano', false)
             ->exists();
 
-        if ($istnieje) {
-            return back()->withErrors('Już masz aktywną rezerwację tej książki');
+        if ($maAktywnaRezerwacje) {
+            return back()->withErrors('Już masz aktywną rezerwację tej książki, ty chciwy śmieciu.');
         }
 
-        // Tworzymy nową rezerwację
         Rezerwacja::create([
             'user_id' => $userId,
             'ksiazka_id' => $ksiazkaId,
             'reserved_at' => now(),
-            'cancelled_at' => null,  // Rezerwacja nie jest anulowana na początku
+            'cancelled_at' => null,
             'zrealizowano' => false,
         ]);
 
-        return back()->with('success', 'Książka zarezerwowana');
+        return back()->with('success', 'Książka zarezerwowana. Ciesz się, baranie.');
     }
 }

@@ -6,11 +6,19 @@
         <h3 class="book-title">{{ $ksiazka->tytul }}</h3>
         <p class="book-author m-0">{{ $ksiazka->autor ? $ksiazka->autor->name : "brak XD" }}</p>
         @if ($user)
+            @php
+                $hasReserved = $user->rezerwacje()
+                    ->where('ksiazka_id', $ksiazka->id)
+                    ->whereNull('cancelled_at')
+                    ->where('zrealizowano', false)
+                    ->exists();
+            @endphp
+
             @if ($ksiazka->amount == 0)
                 <button class="book-button book-button-reserve mb-2">Brak egzemplarzy</button>
             @else
-                @if ($user->rezerwacje()->where('ksiazka_id', $ksiazka->id)->whereNull('cancelled_at')->exists())
-                    <button class="book-button  mb-2 bg-success">Zarezerwowano!</button>
+                @if ($hasReserved)
+                    <button class="book-button mb-2 bg-success">Zarezerwowano!</button>
                 @else
                     <form class="w-100 m-0" method="POST" action="{{ route('rezerwacje.store') }}">
                         @csrf
@@ -22,6 +30,7 @@
         @else
             <a href="{{ route('login') }}" class="book-button book-button-reserve mb-2">Zaloguj się by zarezerwować</a>
         @endif
+
         <a href="{{ route('ksiazka', ['id' => $ksiazka->id]) }}" class="book-button book-button-more">Zobacz więcej</a>
     </div>
 </div>

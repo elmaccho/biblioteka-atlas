@@ -18,6 +18,7 @@ Route::get('/kategoria/{id}/ksiazki', [KsiazkaController::class, 'byKategoria'])
 // })->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/moje_rezerwacje', [RezerwacjaController::class, 'index'])->name('rezerwacje.index');
     Route::get('/ustawienia', [UserController::class, 'edit'])->name('ustawienia');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

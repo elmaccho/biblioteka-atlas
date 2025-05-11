@@ -36,7 +36,7 @@
                 </a>
 
                 {{-- Rezerwacje --}}
-                <a class="link-button" href="{{ route('home') }}">
+                <a class="link-button" href="{{ route('rezerwacje.index') }}">
                     <i class="fa-solid fa-newspaper"></i>
                     <span>Rezerwacje</span>
                 </a>

@@ -29,10 +29,18 @@
                             @endif
                         </p>
                         @if ($user)
+                            @php
+                                $hasReserved = $user->rezerwacje()
+                                    ->where('ksiazka_id', $ksiazka->id)
+                                    ->whereNull('cancelled_at')
+                                    ->where('zrealizowano', false)
+                                    ->exists();
+                            @endphp
+
                             @if ($ksiazka->amount == 0)
-                                <button class="book-button book-button-reserve mb-2">Brak egzemplarzy</button>
+                                <button class="book-button book-button-reserve mb-2" style="width: 200px;">Brak egzemplarzy</button>
                             @else
-                                @if ($user->rezerwacje()->where('ksiazka_id', $ksiazka->id)->whereNull('cancelled_at')->exists())
+                                @if ($hasReserved)
                                     <button class="book-button w-50 mb-2 bg-success">Zarezerwowano!</button>
                                 @else
                                     <form class="w-100 m-0" method="POST" action="{{ route('rezerwacje.store') }}">
@@ -43,9 +51,10 @@
                                 @endif
                             @endif
                         @else
-                            <a href="{{ route('login') }}" class="book-button book-button-reserve mb-2">Zaloguj się by
-                                zarezerwować</a>
+                            <a href="{{ route('login') }}" class="book-button book-button-reserve mb-2"
+                                style="width: 200px;">Zaloguj się</a>
                         @endif
+
                     </div>
                 </div>
                 <div class="book-desc">
