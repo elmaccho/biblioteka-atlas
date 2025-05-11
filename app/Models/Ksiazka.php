@@ -30,4 +30,8 @@ class Ksiazka extends Model
     {
         return $this->belongsTo(Autor::class, "autor_id");
     }
+    public function rezerwacje()
+    {
+        return $this->hasMany(Rezerwacja::class);
+    }
 }
