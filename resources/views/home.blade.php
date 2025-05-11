@@ -14,7 +14,11 @@
                         <h3 class="book-title">{{ $ksiazka->tytul }}</h3>
                         <p class="book-author m-0">{{ $ksiazka->autor ? $ksiazka->autor->name : "brak XD" }}</p>
                         @if ($user)
-                            <button class="book-button book-button-reserve mb-2">Zarezerwuj</button>
+                            @if ($ksiazka->amount == 0)
+                                <button class="book-button book-button-reserve mb-2">Brak egzemplarzy</button>
+                            @else
+                                <button class="book-button book-button-reserve mb-2">Zarezerwuj</button>
+                            @endif
                         @else
                             <a href="{{ route('login') }}" class="book-button book-button-reserve mb-2">Zaloguj się by zarezerwować</a>
                         @endif
@@ -22,6 +26,9 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div class="d-flex justify-content-end mt-3">
+            {{ $ksiazki->links() }}
         </div>
     </div>
 @endsection

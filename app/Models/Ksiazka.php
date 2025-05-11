@@ -14,6 +14,7 @@ class Ksiazka extends Model
     protected $fillable = [
         'tytul',
         'opis',
+        'amount',
         'kategoria_id',
         'autor_id',
         'img_src',

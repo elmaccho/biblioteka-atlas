@@ -28,5 +28,8 @@
                 </div>
             @endforeach
         </div>
+        <div class="d-flex justify-content-end mt-3">
+            {{ $ksiazki->links() }}
+        </div>
     </div>
 @endsection

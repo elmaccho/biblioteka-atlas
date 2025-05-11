@@ -16,7 +16,7 @@ class KsiazkaController extends Controller
     public function byKategoria($id)
     {
         $kategoria = Kategoria::findOrFail($id);
-        $ksiazki = $kategoria->ksiazki;
+        $ksiazki = $kategoria->ksiazki()->paginate(10);
         return view('by_kategoria', compact('ksiazki', 'kategoria'));
     }
 }
