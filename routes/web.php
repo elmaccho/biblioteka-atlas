@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategorieController;
 use App\Http\Controllers\KsiazkaController;
+use App\Http\Controllers\Librarian\LibrarianPanelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RezerwacjaController;
 use App\Http\Controllers\UserController;
@@ -24,6 +26,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/rezerwacje', [RezerwacjaController::class, 'store'])->name('rezerwacje.store');
+
+    Route::middleware('role:admin')->group(function () {
+        Route::get('/panel-administracyjny', [AdminPanelController::class, 'index'])->name('admin.index');
+    });
+
+    Route::middleware('role:bibliotekarz')->group(function () {
+        Route::get('/panel-bibliotekarza', [LibrarianPanelController::class, 'index'])->name('librarian.index');
+    });
 });
 
 require __DIR__.'/auth.php';

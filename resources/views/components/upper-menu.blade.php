@@ -11,9 +11,10 @@
                 <i class="fa-regular fa-bell text-light"></i>
             </a>
 
+
             <div class="dropdown d-flex gap-2">
                 @if ($user->profile_img_src != null)
-                    <img src="{{ asset('storage/user/'.$user->profile_img_src) }}" alt="">    
+                    <img src="{{ asset('storage/user/' . $user->profile_img_src) }}" alt="">
                 @else
                     <i class="fa-solid fa-circle-user" style="font-size: 30px"></i>
                 @endif
@@ -28,8 +29,22 @@
                             Profil
                         </a>
                     </li>
+
+                    @if ($user->rola == 'bibliotekarz')
+                        <li>
+                            <a href="{{ route('librarian.index') }}" class="dropdown-item text-dark">
+                                Panel
+                            </a>
+                        </li>
+                    @elseif ($user->rola == 'admin')
+                        <li>
+                            <a href="{{ route('admin.index') }}" class="dropdown-item text-dark">
+                                Panel
+                            </a>
+                        </li>
+                    @endif
                     <li>
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('logout') }}" class="m-0">
                             @csrf
                             <button type="submit" class="dropdown-item text-dark">
                                 Wyloguj się
