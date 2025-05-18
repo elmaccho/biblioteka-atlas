@@ -15,26 +15,25 @@
     <script src="https://kit.fontawesome.com/4798a03daf.js" crossorigin="anonymous"></script>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/side-menu.css', 'resources/css/upper-menu.css', 'resources/js/side-menu.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/side-menu.css', 'resources/css/upper-menu.css', 'resources/js/side-menu.js', 'resources/css/panel/panel.css'])
 </head>
 
 <body class="overflow-hidden">
-
     <div class="d-flex w-100" style="height: 100vh;">
-        {{-- Side Menu (lewa kolumna) --}}
         <div class="side-menu-container">
-            <x-side-menu />
+            <x-panel title="Panel administracyjny">
+                <a class="link-button" href="{{ route('home') }}">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Strona główna</span>
+                </a>
+            </x-panel>
         </div>
-    
-        {{-- Główna zawartość (prawa kolumna) --}}
         <div class="content-container d-flex flex-column flex-grow-1">
-            <x-upper-menu />
             <div class="content-scroll-area flex-grow-1 overflow-auto">
-                @yield('content')
+                @yield('panel_content')
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

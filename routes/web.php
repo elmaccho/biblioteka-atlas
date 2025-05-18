@@ -27,12 +27,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/rezerwacje', [RezerwacjaController::class, 'store'])->name('rezerwacje.store');
 
-    Route::middleware('admin')->group(function () {
+    Route::middleware('role:admin')->group(function () {
         Route::get('/panel-administracyjny', [AdminPanelController::class, 'index'])->name('admin.dashboard');
     });
 
-    Route::middleware('librarian')->group(function () {
-        Route::get('/panel-bibliotekarza', [AdminPanelController::class, 'index'])->name('admin.dashboard');
+    Route::middleware('role:librarian')->group(function () {
+        Route::get('/panel-bibliotekarza', [LibrarianPanelController::class, 'index'])->name('librarian.dashboard');
     });
 });
 

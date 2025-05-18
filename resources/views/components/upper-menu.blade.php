@@ -32,13 +32,13 @@
 
                     @if ($user->rola == 'bibliotekarz')
                         <li>
-                            <a href="{{ route('librarian.index') }}" class="dropdown-item text-dark">
+                            <a href="{{ route('librarian.dashboard') }}" class="dropdown-item text-dark">
                                 Panel
                             </a>
                         </li>
                     @elseif ($user->rola == 'admin')
                         <li>
-                            <a href="{{ route('admin.index') }}" class="dropdown-item text-dark">
+                            <a href="{{ route('admin.dashboard') }}" class="dropdown-item text-dark">
                                 Panel
                             </a>
                         </li>
