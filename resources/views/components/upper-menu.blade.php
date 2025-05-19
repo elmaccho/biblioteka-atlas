@@ -18,7 +18,7 @@
                 @else
                     <i class="fa-solid fa-circle-user" style="font-size: 30px"></i>
                 @endif
-                <button class="btn-outline-light dropdown-toggle d-flex align-items-center gap-1" type="button"
+                <button class="bg-transparent text-light border-0 dropdown-toggle d-flex align-items-center gap-1" type="button"
                     id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ $user->name }}
                 </button>
@@ -32,13 +32,13 @@
 
                     @if ($user->rola == 'bibliotekarz')
                         <li>
-                            <a href="{{ route('librarian.dashboard') }}" class="dropdown-item text-dark">
+                            <a href="{{ route('librarian.index') }}" class="dropdown-item text-dark">
                                 Panel
                             </a>
                         </li>
                     @elseif ($user->rola == 'admin')
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="dropdown-item text-dark">
+                            <a href="{{ route('admin.index') }}" class="dropdown-item text-dark">
                                 Panel
                             </a>
                         </li>

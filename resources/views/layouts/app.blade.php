@@ -15,11 +15,16 @@
     <script src="https://kit.fontawesome.com/4798a03daf.js" crossorigin="anonymous"></script>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/side-menu.css', 'resources/css/upper-menu.css', 'resources/js/side-menu.js'])
+    @vite([
+        'resources/css/app.css', 
+        'resources/js/app.js', 
+        'resources/css/side-menu.css', 
+        'resources/css/upper-menu.css', 
+        'resources/js/side-menu.js'
+        ])
 </head>
 
 <body class="overflow-hidden">
-
     <div class="d-flex w-100" style="height: 100vh;">
         {{-- Side Menu (lewa kolumna) --}}
         <div class="side-menu-container">
@@ -34,8 +39,6 @@
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

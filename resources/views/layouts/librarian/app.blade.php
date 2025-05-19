@@ -13,13 +13,14 @@
 
     {{-- FontAwesome --}}
     <script src="https://kit.fontawesome.com/4798a03daf.js" crossorigin="anonymous"></script>
+
     <!-- Scripts -->
     @vite([
         'resources/css/app.css',
         'resources/js/app.js',
+        'resources/css/panel/panel.css',
         'resources/css/upper-menu.css',
-        'resources/js/side-menu.js',
-        'resources/css/panel/panel.css'
+        'resources/js/side-menu.js'
     ])
 </head>
 
@@ -39,13 +40,16 @@
                         </h2>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Wyślij powiadomienie o dostępności</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Wyślij przypomnienie</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Historia wysłanych wiadomości</span>
                                 </a>
                             </div>
@@ -63,14 +67,36 @@
                         </h2>
                         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Wyświetl książki</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Edytuj książkę</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Kategorie i autorzy</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rezerwacje-panel mb-2">
+                        <h2 class="accordion-header">
+                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-Six" aria-expanded="true"
+                                aria-controls="panelsStayOpen-Six">
+                                <i class="fa-solid fa-recycle"></i>
+                                <span>Rezerwacje</span>
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-Six" class="accordion-collapse collapse">
+                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('librarian.reservations', 'active') }}">
+                                    <span>Wyświetl rezerwacje</span>
                                 </a>
                             </div>
                         </div>
@@ -87,16 +113,20 @@
                         </h2>
                         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('librarian.rentals', 'new') }}">
                                     <span>Nowe wypożyczenie</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('librarian.rentals', 'return') }}">
                                     <span>Zwróć książkę</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('librarian.rentals', 'extend') }}">
                                     <span>Przedłuż termin</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('librarian.rentals', 'active') }}">
                                     <span>Lista aktywnych wypożyczeń</span>
                                 </a>
                             </div>
@@ -114,13 +144,14 @@
                         </h2>
                         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Operacje na książce</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Operacje użytkownika</span>
                                 </a>
-
                             </div>
                         </div>
                     </div>
@@ -136,19 +167,23 @@
                         </h2>
                         <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Wyświetl użytkowników</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Historia wypożyczeń</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Historia rezerwacji</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </x-panel>
         </div>
         <div class="content-container d-flex flex-column flex-grow-1">

@@ -39,16 +39,20 @@
                         </h2>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Szablony powiadomień</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                     href="{{ route('home') }}">
                                     <span>Przypomnienia o zwrocie</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Powiadomienia o dostępności</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Historia powiadomień</span>
                                 </a>
                             </div>
@@ -66,16 +70,20 @@
                         </h2>
                         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Wyświetl książki</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Dodaj nową książkę</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Edytuj książkę</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Kategorie i autorzy</span>
                                 </a>
                             </div>
@@ -93,13 +101,16 @@
                         </h2>
                         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Historia operacji użytkownika</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Historia operacji książek</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Dziennik administratora</span>
                                 </a>
                             </div>
@@ -117,10 +128,10 @@
                         </h2>
                         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
                                     <span>Raport aktywności użytkowników</span>
                                 </a>
-
                             </div>
                         </div>
                     </div>
@@ -136,16 +147,19 @@
                         </h2>
                         <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('admin.users', 'index') }}">
                                     <span>Wyświetl użytkowników</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('admin.users', 'activity_report') }}">
                                     <span>Generuj raport aktywności</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </x-panel>
         </div>
         <div class="content-container d-flex flex-column flex-grow-1">

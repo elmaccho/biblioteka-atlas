@@ -15,10 +15,6 @@ Route::get('/kategorie', [KategorieController::class, 'index'])->name('kategorie
 Route::get('/ksiazka/{id}', [KsiazkaController::class, 'show'])->name('ksiazka');
 Route::get('/kategoria/{id}/ksiazki', [KsiazkaController::class, 'byKategoria'])->name('kategoria.ksiazki');
 
-// Route::get('/', function () {
-//     return view('');
-// })->middleware(['auth', 'verified']);
-
 Route::middleware('auth')->group(function () {
     Route::get('/moje_rezerwacje', [RezerwacjaController::class, 'index'])->name('rezerwacje.index');
     Route::get('/ustawienia', [UserController::class, 'edit'])->name('ustawienia');
@@ -27,13 +23,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/rezerwacje', [RezerwacjaController::class, 'store'])->name('rezerwacje.store');
 
-    Route::middleware('role:admin')->group(function () {
-        Route::get('/panel-administracyjny', [AdminPanelController::class, 'index'])->name('admin.dashboard');
+    Route::middleware(['auth', 'role:admin'])->prefix('panel-administracyjny')->name('admin.')->group(function () {
+        Route::get('/', [AdminPanelController::class, 'index'])->name('index');
+
+        Route::get('/uzytkownicy/{page?}', [AdminPanelController::class, 'users'])
+            ->where('page', 'index|activity_report')
+            ->name('users');
     });
 
-    Route::middleware('role:librarian|admin')->group(function () {
-        Route::get('/panel-bibliotekarza', [LibrarianPanelController::class, 'index'])->name('librarian.dashboard');
+    Route::middleware(['auth', 'role:librarian|admin'])->prefix('panel-bibliotekarza')->name('librarian.')->group(function () {
+        Route::get('/', [LibrarianPanelController::class, 'index'])->name('dashboard');
+
+        Route::get('/wypozyczenia/{page?}', [LibrarianPanelController::class, 'rentals'])->name('rentals');
+        Route::get('/rezerwacje/{page?}', [LibrarianPanelController::class, 'reservations'])->name('reservations');
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
