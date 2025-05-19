@@ -13,12 +13,10 @@
 
     {{-- FontAwesome --}}
     <script src="https://kit.fontawesome.com/4798a03daf.js" crossorigin="anonymous"></script>
-
     <!-- Scripts -->
     @vite([
         'resources/css/app.css',
         'resources/js/app.js',
-        'resources/css/side-menu.css',
         'resources/css/upper-menu.css',
         'resources/js/side-menu.js',
         'resources/css/panel/panel.css'
@@ -29,38 +27,121 @@
     <div class="d-flex w-100" style="height: 100vh;">
         <div class="side-menu-container">
             <x-panel title="Panel administracyjny">
-                {{-- <a class="link-button" href="{{ route('home') }}">
-                    <i class="fa-solid fa-house"></i>
-                    <span>Strona główna</span>
-                </a> --}}
-                {{-- <div class="mb-3">
-                    <button class="btn btn-primary w-100 text-start d-flex align-items-center justify-content-between"
-                        type="button" data-bs-toggle="collapse" data-bs-target="#category1" aria-expanded="false"
-                        aria-controls="category1">
-                        <div><i class="fa-solid fa-house me-2"></i>Strona główna</div>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </button>
-                    <div class="collapse" id="category1">
-                        <div class="card card-body">
-                            <a href="#" class="btn btn-link text-start">Podkategoria 1</a>
-                            <a href="#" class="btn btn-link text-start">Podkategoria 2</a>
-                            <a href="#" class="btn btn-link text-start">Podkategoria 3</a>
-                        </div>
-                    </div>
-                </div> --}}
-
                 <div class="accordion" id="accordionPanelsStayOpenExample">
-                    <div class="accordion-item">
+                    <div class="notification-panel mb-2">
                         <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                                 aria-controls="panelsStayOpen-collapseOne">
-                                Accordion Item #1
+                                <i class="fa-solid fa-bell"></i>
+                                <span>Powiadomienia</span>
                             </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                            <div class="accordion-body">
-                                <code>XDDDDDDDDDDd</code>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Szablony powiadomień</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Przypomnienia o zwrocie</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Powiadomienia o dostępności</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Historia powiadomień</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="zasoby-panel mb-2">
+                        <h2 class="accordion-header">
+                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseTwo">
+                                <i class="fa-solid fa-book"></i>
+                                <span>Zasoby biblioteki</span>
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Wyświetl książki</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Dodaj nową książkę</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Edytuj książkę</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Kategorie i autorzy</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="operacjesys-panel mb-2">
+                        <h2 class="accordion-header">
+                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseThree">
+                                <i class="fa-solid fa-recycle"></i>
+                                <span>Operacje systemowe</span>
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Historia operacji użytkownika</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Historia operacji książek</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Dziennik administratora</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="raportyistats-panel mb-2">
+                        <h2 class="accordion-header">
+                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseFour">
+                                <i class="fa-solid fa-file"></i>
+                                <span>Raporty i statystyki</span>
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Raport aktywności użytkowników</span>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uzytkownicy-panel">
+                        <h2 class="accordion-header">
+                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseFive">
+                                <i class="fa-solid fa-users"></i>
+                                <span>Użytkownicy</span>
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Wyświetl użytkowników</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                    <span>Generuj raport aktywności</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -73,7 +154,6 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

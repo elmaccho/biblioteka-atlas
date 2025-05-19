@@ -1,9 +1,13 @@
+.accordion-body{
+    padding-top: 10px !important;
+    padding-bottom: 0 !important;
+}
 .side-menu-container{
     background-color: #2C3E50;
     display: flex;
     gap: 80px;
     flex-direction: column;
-    width: 350px;
+    width: 380px;
     min-height: 100vh;
     padding: 30px 40px;
     transition: 0.3s;
@@ -43,6 +47,7 @@
     justify-content: center;
     gap: 10px;
     transition: 0.3s;
+    font-size: 18px;
 }
 .link-button i {
     padding: 10px;
@@ -52,6 +57,7 @@
     border-radius: 5px;
     display: flex;
     align-items: center;
+    justify-content: center;
     transition: background-color 0.3s, color 0.3s;
 }
 .link-button:hover i {

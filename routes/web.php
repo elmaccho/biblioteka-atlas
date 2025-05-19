@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/panel-administracyjny', [AdminPanelController::class, 'index'])->name('admin.dashboard');
     });
 
-    Route::middleware('role:librarian')->group(function () {
+    Route::middleware('role:librarian|admin')->group(function () {
         Route::get('/panel-bibliotekarza', [LibrarianPanelController::class, 'index'])->name('librarian.dashboard');
     });
 });
