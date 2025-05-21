@@ -108,8 +108,8 @@
                                     <span>Aktywne rezerwacje</span>
                                 </a>
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('librarian.reservations', 'otherreserv') }}">
-                                    <span>Inne rezerwacje</span>
+                                    href="{{ route('librarian.reservations', 'archive') }}">
+                                    <span>Archiwum</span>
                                 </a>
                             </div>
                         </div>
@@ -121,7 +121,7 @@
                                 data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true"
                                 aria-controls="panelsStayOpen-collapseThree">
                                 <i class="fa-solid fa-recycle"></i>
-                                <span>Wypożyczenia i zwroty</span>
+                                <span>Wypożyczenia</span>
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
@@ -131,12 +131,12 @@
                                     <span>Nowe wypożyczenie</span>
                                 </a>
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('librarian.rentals', 'return') }}">
-                                    <span>Zwróć książkę</span>
-                                </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
                                     href="{{ route('librarian.rentals', 'active') }}">
                                     <span>Lista aktywnych wypożyczeń</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('librarian.rentals', 'archive') }}">
+                                    <span>Archiwum</span>
                                 </a>
                             </div>
                         </div>
@@ -153,10 +153,6 @@
                         </h2>
                         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
-                                    <span>Operacje na książce</span>
-                                </a>
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
                                     href="{{ route('home') }}">
                                     <span>Operacje użytkownika</span>

@@ -40,10 +40,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/rezerwacje/{page?}', [LibrarianPanelController::class, 'reservations'])->name('reservations');
 
 
-        // Funkcjonalności
-
+        // Funkcjonalności rezerwacji
         Route::patch('/rezerwacje/{id}/cancel', [LibrarianPanelController::class, 'cancel'])->name('rezerwacje.cancel');
         Route::patch('/rezerwacje/{id}/realize', [LibrarianPanelController::class, 'realize'])->name('rezerwacje.realize');
+        
+        // Funkcjonalności wypożyczenia
+        Route::patch('/wypozyczenia/{id}/return', [LibrarianPanelController::class, 'return'])->name('wypozyczenie.return');
     });
 });
 

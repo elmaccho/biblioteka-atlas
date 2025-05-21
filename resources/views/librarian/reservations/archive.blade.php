@@ -5,7 +5,7 @@
         <div class="container mt-5">
             <h2 class="mb-4">Rezerwacje</h2>
 
-            <h4 class="text-muted">Anulowane i zrealizowane</h4>
+            <h4 class="text-muted">Archiwum rezerwacji</h4>
             <table class="table table-bordered table-hover align-middle">
                 <thead class="table-light">
                     <tr>
