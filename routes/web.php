@@ -8,6 +8,7 @@ use App\Http\Controllers\Librarian\LibrarianPanelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RezerwacjaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WypozyczeniaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/rezerwacje', [RezerwacjaController::class, 'store'])->name('rezerwacje.store');
+    Route::get('/moje_wypozyczenia', [WypozyczeniaController::class, 'index'])->name('wypozyczenia.index');
 
     Route::middleware(['auth', 'role:admin'])->prefix('panel-administracyjny')->name('admin.')->group(function () {
         Route::get('/', [AdminPanelController::class, 'index'])->name('index');

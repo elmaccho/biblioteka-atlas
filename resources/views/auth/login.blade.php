@@ -9,14 +9,14 @@
         @csrf
 
         <!-- Email Address -->
-        <div>
+        <div class="d-flex flex-column">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
+        <div class="mt-4 d-flex flex-column">
             <x-input-label for="password" :value="__('Hasło')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
@@ -42,7 +42,7 @@
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
+            <x-primary-button class="ms-3 btn btn-primary">
                 Zaloguj się
             </x-primary-button>
         </div>

@@ -30,7 +30,7 @@
                 </a>
 
                 {{-- Moje wypożyczenia --}}
-                <a class="link-button" href="{{ route('home') }}">
+                <a class="link-button" href="{{ route('wypozyczenia.index') }}">
                     <i class="fa-solid fa-calendar-check"></i>
                     <span>Moje wypożyczenia</span>
                 </a>
