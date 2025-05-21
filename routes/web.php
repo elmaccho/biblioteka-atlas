@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['auth', 'role:librarian|admin'])->prefix('panel-bibliotekarza')->name('librarian.')->group(function () {
-        Route::get('/', [LibrarianPanelController::class, 'index'])->name('dashboard');
+        Route::get('/', [LibrarianPanelController::class, 'index'])->name('index');
 
         Route::get('/wypozyczenia/{page?}', [LibrarianPanelController::class, 'rentals'])->name('rentals');
         Route::get('/rezerwacje/{page?}', [LibrarianPanelController::class, 'reservations'])->name('reservations');

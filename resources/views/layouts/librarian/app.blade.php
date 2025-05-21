@@ -29,6 +29,15 @@
         <div class="side-menu-container">
             <x-panel title="Panel bibliotekarza">
                 <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="dashboard-panel mb-2">
+                        <h2 class="accordion-header">
+                            <a href="{{ route('home') }}" class="link-button p-0 justify-content-start">
+                                <i class="fa-solid fa-home"></i>
+                                <span>Strona główna</span>
+                            </a>
+                        </h2>
+                    </div>
+
                     <div class="notification-panel mb-2">
                         <h2 class="accordion-header">
                             <button class="link-button p-0" type="button" data-bs-toggle="collapse"
@@ -40,10 +49,6 @@
                         </h2>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
-                                    <span>Wyślij powiadomienie o dostępności</span>
-                                </a>
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
                                     href="{{ route('home') }}">
                                     <span>Wyślij przypomnienie</span>
@@ -67,6 +72,10 @@
                         </h2>
                         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('home') }}">
+                                    <span>Dodaj książkę</span>
+                                </a>
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
                                     href="{{ route('home') }}">
                                     <span>Wyświetl książki</span>
@@ -120,10 +129,6 @@
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
                                     href="{{ route('librarian.rentals', 'return') }}">
                                     <span>Zwróć książkę</span>
-                                </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('librarian.rentals', 'extend') }}">
-                                    <span>Przedłuż termin</span>
                                 </a>
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
                                     href="{{ route('librarian.rentals', 'active') }}">

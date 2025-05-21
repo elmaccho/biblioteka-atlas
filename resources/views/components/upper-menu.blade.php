@@ -30,20 +30,25 @@
                         </a>
                     </li>
 
-                    @if ($user->rola == 'bibliotekarz')
+                    @if ($user->hasRole('librarian'))
                         <li>
                             <a href="{{ route('librarian.index') }}" class="dropdown-item text-dark">
-                                Panel
+                                Panel Bibliotekarza
                             </a>
                         </li>
-                    @elseif ($user->rola == 'admin')
+                        @elseif ($user->hasRole(['admin', 'bibliotekarz']))
                         <li>
                             <a href="{{ route('admin.index') }}" class="dropdown-item text-dark">
-                                Panel
+                                Panel Administracyjny
                             </a>
                         </li>
-                    @endif
-                    <li>
+                        <li>
+                            <a href="{{ route('librarian.index') }}" class="dropdown-item text-dark">
+                                Panel Bibliotekarza
+                            </a>
+                        </li>
+                        @endif
+                        <li>
                         <form method="POST" action="{{ route('logout') }}" class="m-0">
                             @csrf
                             <button type="submit" class="dropdown-item text-dark">
