@@ -9,23 +9,17 @@
             <tr>
                 <th>Książka</th>
                 <th>Wypożyczono</th>
+                <th>Termin zwrotu</th>
                 <th>Status</th>
-                <th>Akcja</th>
             </tr>
         </thead>
         <tbody>
             @forelse ($wypozyczenia as $wyp)
                 <tr>
                     <td>{{ $wyp->ksiazka->tytul }}</td>
-                    <td>{{ $wyp->reserved_at }}</td>
+                    <td>{{ $wyp->borrowed_at }}</td>
+                    <td>{{ $wyp->due_date }}</td>
                     <td><span class="badge bg-success">Aktywna</span></td>
-                    <td>
-                        {{-- <form method="POST" action="{{ route('rezerwacje.cancel', $rez->id) }}">
-                            @csrf
-                            @method('PATCH') --}}
-                            <button class="btn btn-sm btn-danger">Anuluj</button>
-                        {{-- </form> --}}
-                    </td>
                 </tr>
             @empty
                 <tr>

@@ -24,8 +24,19 @@
                             <td>{{ optional($rez->user)->name . ' ' . optional($rez->user)->lastname ?? 'Brak danych' }}</td>
                             <td><span class="badge bg-success">Aktywna</span></td>
                             <td>
-                                <button class="btn btn-sm btn-danger">Anuluj</button>
-                                <button class="btn btn-sm btn-primary">Zrealizuj</button>
+                                <form action="{{ route('librarian.rezerwacje.cancel', $rez->id) }}" method="POST"
+                                    class="d-inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-sm btn-danger">Anuluj</button>
+                                </form>
+
+                                <form action="{{ route('librarian.rezerwacje.realize', $rez->id) }}" method="POST"
+                                    class="d-inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-sm btn-primary">Zrealizuj</button>
+                                </form>
                             </td>
                         </tr>
                     @empty

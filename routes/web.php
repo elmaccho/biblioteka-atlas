@@ -38,6 +38,12 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/wypozyczenia/{page?}', [LibrarianPanelController::class, 'rentals'])->name('rentals');
         Route::get('/rezerwacje/{page?}', [LibrarianPanelController::class, 'reservations'])->name('reservations');
+
+
+        // Funkcjonalności
+
+        Route::patch('/rezerwacje/{id}/cancel', [LibrarianPanelController::class, 'cancel'])->name('rezerwacje.cancel');
+        Route::patch('/rezerwacje/{id}/realize', [LibrarianPanelController::class, 'realize'])->name('rezerwacje.realize');
     });
 });
 

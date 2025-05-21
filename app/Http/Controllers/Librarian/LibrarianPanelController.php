@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Librarian;
 
 use App\Http\Controllers\Controller;
 use App\Models\Rezerwacja;
+use App\Models\Wypozyczenie;
 use Illuminate\Http\Request;
 
 class LibrarianPanelController extends Controller
@@ -25,7 +26,6 @@ class LibrarianPanelController extends Controller
         return $this->renderView('reservations', $page, $allowedPages, compact('rezerwacje'));
     }
 
-
     private function renderView($folder, $page, $allowedPages, $data = [])
     {
         if (!in_array($page, $allowedPages)) {
@@ -33,5 +33,32 @@ class LibrarianPanelController extends Controller
         }
 
         return view("librarian.$folder.$page", $data);
+    }
+
+    public function cancel($id)
+    {
+        $rez = Rezerwacja::findOrFail($id);
+        $rez->cancelled_at = now();
+        $rez->save();
+
+        return redirect()->back()->with('success', 'Rezerwacja została anulowana');
+    }
+
+    public function realize($id)
+    {
+        $rez = Rezerwacja::findOrFail($id);
+        $rez->zrealizowano = true;
+        $rez->save();
+
+        $wypo = Wypozyczenie::create([
+            'user_id' => $rez->user->id,
+            'ksiazka_id' => $rez->ksiazka->id,
+            'borrowed_at' => today(),
+            'due_date' => today()->addDays(30),
+        ]);
+
+        $wypo->save();
+
+        return redirect()->back()->with('success', 'Rezerwacja zrealizowana.');
     }
 }
