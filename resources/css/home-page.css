@@ -33,6 +33,7 @@
     align-items: center;
     justify-content: center;
     transition: 0.3s;
+    border: none;
 }
 .book-button:hover{
     opacity: 80%;

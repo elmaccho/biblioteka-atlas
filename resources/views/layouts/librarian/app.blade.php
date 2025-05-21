@@ -16,12 +16,12 @@
 
     <!-- Scripts -->
     @vite([
-        'resources/css/app.css',
-        'resources/js/app.js',
-        'resources/css/panel/panel.css',
-        'resources/css/upper-menu.css',
-        'resources/js/side-menu.js'
-    ])
+    'resources/css/app.css',
+    'resources/js/app.js',
+    'resources/css/panel/panel.css',
+    'resources/css/upper-menu.css',
+    'resources/js/side-menu.js'
+])
 </head>
 
 <body class="overflow-hidden">
@@ -72,20 +72,15 @@
                         </h2>
                         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
                                     <span>Dodaj książkę</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('librarian.books', 'show') }}">
                                     <span>Wyświetl książki</span>
                                 </a>
+                    
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
-                                    <span>Edytuj książkę</span>
-                                </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
+                                    href="{{ route('librarian.books', 'authors') }}">
                                     <span>Kategorie i autorzy</span>
                                 </a>
                             </div>

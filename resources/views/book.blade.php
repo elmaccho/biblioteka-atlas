@@ -14,7 +14,11 @@
         </div>
         <div class="book-contents">
             <div class="book-photo">
-                <img src="{{ asset('storage/books/metro2033.jpg') }}" alt="">
+                @if ($ksiazka->img_src)
+                    <img src="{{ asset('storage/' . $ksiazka->img_src) }}" alt="okładka" width="50">
+                @else
+                    <img src="{{ asset('storage/books/placeholderimage.png') }}" alt="okładka" width="50">
+                @endif
             </div>
             <div class="book-content">
                 <div class="book-action mb-5">

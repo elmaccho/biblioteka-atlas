@@ -36,14 +36,31 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['auth', 'role:librarian|admin'])->prefix('panel-bibliotekarza')->name('librarian.')->group(function () {
         Route::get('/', [LibrarianPanelController::class, 'index'])->name('index');
 
+        Route::get('/ksiazki/{page?}', [LibrarianPanelController::class, 'books'])->name('books');
         Route::get('/wypozyczenia/{page?}', [LibrarianPanelController::class, 'rentals'])->name('rentals');
         Route::get('/rezerwacje/{page?}', [LibrarianPanelController::class, 'reservations'])->name('reservations');
+        
+
+
+
+
+        // Funkcjonalności książki
+        Route::get('/ksiazka/{id}/edit', [LibrarianPanelController::class, 'edit'])->name('books.edit');
+        Route::put('/ksiazka/{id}', [LibrarianPanelController::class, 'update'])->name('books.update');
+        Route::delete('/ksiazka/{id}', [LibrarianPanelController::class, 'destroy'])->name('books.destroy');
+
+
+
 
 
         // Funkcjonalności rezerwacji
         Route::patch('/rezerwacje/{id}/cancel', [LibrarianPanelController::class, 'cancel'])->name('rezerwacje.cancel');
         Route::patch('/rezerwacje/{id}/realize', [LibrarianPanelController::class, 'realize'])->name('rezerwacje.realize');
         
+
+
+
+
         // Funkcjonalności wypożyczenia
         Route::patch('/wypozyczenia/{id}/return', [LibrarianPanelController::class, 'return'])->name('wypozyczenie.return');
     });
