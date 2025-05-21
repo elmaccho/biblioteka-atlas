@@ -5,36 +5,36 @@
         <div class="container mt-5">
             <h2 class="mb-4">Rezerwacje</h2>
 
-            <h4 class="text-success">Aktywne rezerwacje</h4>
-            <table class="table table-bordered table-hover align-middle mb-5">
+            <h4 class="text-muted">Anulowane i zrealizowane</h4>
+            <table class="table table-bordered table-hover align-middle">
                 <thead class="table-light">
                     <tr>
                         <th>Książka</th>
                         <th>Zarezerwowano</th>
-                        <th>Użytkownik</th>
+                        <th>Użytkownik</th> {{-- NOWE --}}
                         <th>Status</th>
-                        <th>Akcja</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($rezerwacje->whereNull('cancelled_at')->where('zrealizowano', false) as $rez)
+                    @forelse ($rezerwacje->whereNotNull('cancelled_at')->merge($rezerwacje->where('zrealizowano', true)) as $rez)
                         <tr>
                             <td>{{ $rez->ksiazka->tytul }}</td>
                             <td>{{ $rez->reserved_at }}</td>
                             <td>{{ optional($rez->user)->name . ' ' . optional($rez->user)->lastname ?? 'Brak danych' }}</td>
-                            <td><span class="badge bg-success">Aktywna</span></td>
                             <td>
-                                <button class="btn btn-sm btn-danger">Anuluj</button>
-                                <button class="btn btn-sm btn-primary">Zrealizuj</button>
+                                @if ($rez->cancelled_at)
+                                    <span class="badge bg-secondary">Anulowana</span>
+                                @elseif ($rez->zrealizowano)
+                                    <span class="badge bg-info text-dark">Zrealizowana</span>
+                                @endif
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">Brak aktywnych rezerwacji</td>
+                            <td colspan="4">Nie masz żadnych archiwalnych rezerwacji</td>
                         </tr>
                     @endforelse
                 </tbody>
-
             </table>
         </div>
     </div>
