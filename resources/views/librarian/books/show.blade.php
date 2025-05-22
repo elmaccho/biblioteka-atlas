@@ -45,8 +45,7 @@
                                 <a href="{{ route('librarian.books.edit', $ksiazka->id) }}" class="btn btn-sm btn-warning">Edytuj</a>
 
                                 <form action="{{ route('librarian.books.destroy', $ksiazka->id) }}" method="POST"
-                                      class="d-inline"
-                                      onsubmit="return confirm('Na pewno chcesz usunąć książkę?');">
+                                      class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">Usuń</button>

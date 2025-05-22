@@ -20,10 +20,10 @@
                         <td>{{ $autor->name }}</td>
                         <td>
                             <a href="{{ route('librarian.authors.edit', $autor->id) }}" class="btn btn-primary btn-sm">Edytuj</a>
-                            <form action="{{ route('librarian.authors.destroy', $autor->id) }}" method="POST" style="display:inline-block;">
+                            <form action="{{ route('librarian.authors.destroy', $autor->id) }}" method="POST" style="display:inline-block;" class="delete-form">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger btn-sm" onclick="return confirm('Na pewno chcesz usunąć tego biedaka?')">Usuń</button>
+                                <button class="btn btn-danger btn-sm">Usuń</button>
                             </form>
                         </td>
                     </tr>

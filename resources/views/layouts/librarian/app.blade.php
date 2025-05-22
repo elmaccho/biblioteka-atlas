@@ -14,6 +14,9 @@
     {{-- FontAwesome --}}
     <script src="https://kit.fontawesome.com/4798a03daf.js" crossorigin="anonymous"></script>
 
+    {{-- SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Scripts -->
     @vite([
         'resources/css/app.css',
@@ -208,5 +211,67 @@
         </div>
     </div>
 </body>
+<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+
+    @if(session('success'))
+        Toast.fire({
+            icon: 'success',
+            title: '{{ session('success') }}'
+        });
+    @endif
+
+    @if(session('error'))
+        Toast.fire({
+            icon: 'error',
+            title: '{{ session('error') }}'
+        });
+    @endif
+
+    @if(session('warning'))
+        Toast.fire({
+            icon: 'warning',
+            title: '{{ session('warning') }}'
+        });
+    @endif
+
+    @if(session('info'))
+        Toast.fire({
+            icon: 'info',
+            title: '{{ session('info') }}'
+        });
+    @endif
+
+
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Na pewno chcesz usunąć?',
+                text: 'Tej akcji nie można cofnąć!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Usuń!',
+                cancelButtonText: 'Jednak nie'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
 
 </html>
