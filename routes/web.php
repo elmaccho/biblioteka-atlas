@@ -39,14 +39,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/ksiazki/{page?}', [LibrarianPanelController::class, 'books'])->name('books');
         Route::get('/wypozyczenia/{page?}', [LibrarianPanelController::class, 'rentals'])->name('rentals');
         Route::get('/rezerwacje/{page?}', [LibrarianPanelController::class, 'reservations'])->name('reservations');
-        
 
         // Funkcjonalności książki
         Route::get('/ksiazka/{id}/edit', [LibrarianPanelController::class, 'edit'])->name('books.edit');
         Route::put('/ksiazka/{id}', [LibrarianPanelController::class, 'update'])->name('books.update');
         Route::delete('/ksiazka/{id}', [LibrarianPanelController::class, 'destroy'])->name('books.destroy');
         Route::post('/ksiazka', [LibrarianPanelController::class, 'store'])->name('books.store');
-
 
         // Autorzy
         Route::get('/autorzy', [LibrarianPanelController::class, 'authors'])->name('authors');
@@ -56,15 +54,16 @@ Route::middleware('auth')->group(function () {
         Route::put('/autorzy/{id}', [LibrarianPanelController::class, 'updateAuthor'])->name('authors.update');
         Route::delete('/autorzy/{id}', [LibrarianPanelController::class, 'destroyAuthor'])->name('authors.destroy');
 
+        // Użytkownicy
+        Route::get('/uzytkownicy', [LibrarianPanelController::class, 'users'])->name('users');
+        Route::get('/uzytkownicy/{id}/profil', [LibrarianPanelController::class, 'userProfile'])->name('users.profile');
+        Route::post('/uzytkownicy/{id}/dodaj-wypozyczenie', [LibrarianPanelController::class, 'addRental'])->name('users.rental');
+        Route::post('/uzytkownicy/{id}/dodaj-rezerwacje', [LibrarianPanelController::class, 'addReservation'])->name('users.reservation');
 
 
         // Funkcjonalności rezerwacji
         Route::patch('/rezerwacje/{id}/cancel', [LibrarianPanelController::class, 'cancel'])->name('rezerwacje.cancel');
         Route::patch('/rezerwacje/{id}/realize', [LibrarianPanelController::class, 'realize'])->name('rezerwacje.realize');
-        
-
-
-
 
         // Funkcjonalności wypożyczenia
         Route::patch('/wypozyczenia/{id}/return', [LibrarianPanelController::class, 'return'])->name('wypozyczenie.return');

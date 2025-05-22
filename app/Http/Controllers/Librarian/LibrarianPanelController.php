@@ -7,6 +7,7 @@ use App\Models\Autor;
 use App\Models\Kategoria;
 use App\Models\Ksiazka;
 use App\Models\Rezerwacja;
+use App\Models\User;
 use App\Models\Wypozyczenie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +22,7 @@ class LibrarianPanelController extends Controller
     // Książki
     public function books($page = 'index')
     {
-        $ksiazki = Ksiazka::paginate(20);
+        $ksiazki = Ksiazka::orderBy('created_at', 'desc')->paginate(20);
         $autorzy = Autor::all();
         $kategorie = Kategoria::all();
 
@@ -98,7 +99,7 @@ class LibrarianPanelController extends Controller
     // Autorzy
     public function authors($page = 'show')
     {
-        $autorzy = Autor::paginate(20);
+        $autorzy = Autor::orderBy('created_at', 'desc')->paginate(20);
 
         $allowedPages = ['show', 'new', 'edit'];
         return $this->renderView('authors', $page, $allowedPages, compact('autorzy'));
@@ -147,7 +148,7 @@ class LibrarianPanelController extends Controller
     // Wypożyczenia
     public function rentals($page = 'index')
     {
-        $wypozyczenia = Wypozyczenie::paginate(20);
+        $wypozyczenia = Wypozyczenie::orderBy('borrowed_at', 'desc')->paginate(20);
 
         $allowedPages = ['index', 'new', 'archive', 'active'];
         return $this->renderView('rentals', $page, $allowedPages, compact('wypozyczenia'));
@@ -170,7 +171,7 @@ class LibrarianPanelController extends Controller
     // Rezerwacje
     public function reservations($page = 'active')
     {
-        $rezerwacje = Rezerwacja::paginate(20);
+        $rezerwacje = Rezerwacja::orderBy('created_at', 'desc')->paginate(20);
         $allowedPages = ['archive', 'active'];
         return $this->renderView('reservations', $page, $allowedPages, compact('rezerwacje'));
     }
@@ -182,7 +183,6 @@ class LibrarianPanelController extends Controller
 
         return redirect()->back()->with('success', 'Rezerwacja została anulowana');
     }
-
     public function realize($id)
     {
         $rez = Rezerwacja::findOrFail($id);
@@ -206,6 +206,88 @@ class LibrarianPanelController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Rezerwacja zrealizowana.');
+    }
+
+
+    // Użytkownicy
+    public function users($page = 'users')
+    {
+        $users = User::paginate(20);
+        $allowedPages = ['users', 'show'];
+        return $this->renderView('users', $page, $allowedPages, compact('users'));
+    }
+    // Wyświetlenie profilu użytkownika
+    public function userProfile($id)
+    {
+        $user = User::findOrFail($id);
+        $ksiazki = Ksiazka::all();
+
+        $wypozyczenia = Wypozyczenie::where('user_id', $id)->orderBy('borrowed_at', 'desc')->get();
+
+        $wypozyczeniaAktywne = $wypozyczenia->whereNull('returned_at');
+        $wypozyczeniaZwrócone = $wypozyczenia->whereNotNull('returned_at');
+
+        $rezerwacje = Rezerwacja::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+
+        $rezerwacjeAktywne = $rezerwacje->whereNull('cancelled_at')->where('zrealizowano', false);
+        $rezerwacjeZrealizowane = $rezerwacje->where('zrealizowano', true);
+        $rezerwacjeAnulowane = $rezerwacje->whereNotNull('cancelled_at');
+
+        return view('librarian.users.show', compact(
+            'user',
+            'ksiazki',
+            'wypozyczeniaAktywne',
+            'wypozyczeniaZwrócone',
+            'rezerwacjeAktywne',
+            'rezerwacjeZrealizowane',
+            'rezerwacjeAnulowane'
+        ));
+    }
+
+
+    // Dodanie wypożyczenia dla użytkownika
+    public function addRental(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'ksiazka_id' => 'required|exists:ksiazki,id',
+            'due_date' => 'required|date|after_or_equal:today',
+        ]);
+
+        $ksiazka = Ksiazka::findOrFail($validated['ksiazka_id']);
+        if ($ksiazka->amount <= 0) {
+            return redirect()->back()->with('error', 'Brak dostępnych egzemplarzy.');
+        }
+
+        $ksiazka->amount--;
+        $ksiazka->save();
+
+        Wypozyczenie::create([
+            'user_id' => $id,
+            'ksiazka_id' => $validated['ksiazka_id'],
+            'borrowed_at' => now(),
+            'due_date' => $validated['due_date'],
+            'returned_at' => null, // jeszcze nie zwrócone
+        ]);
+
+        return redirect()->back()->with('success', 'Wypożyczenie dodane.');
+    }
+
+
+    // Dodanie rezerwacji dla użytkownika
+    public function addReservation(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'ksiazka_id' => 'required|exists:ksiazki,id',
+        ]);
+
+        Rezerwacja::create([
+            'user_id' => $id,
+            'ksiazka_id' => $validated['ksiazka_id'],
+            'created_at' => now(),
+            'zrealizowano' => false,
+        ]);
+
+        return redirect()->back()->with('success', 'Rezerwacja dodana.');
     }
 
 

@@ -188,20 +188,13 @@
                         </h2>
                         <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('librarian.users') }}">
                                     <span>Wyświetl użytkowników</span>
-                                </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
-                                    <span>Historia wypożyczeń</span>
-                                </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
-                                    <span>Historia rezerwacji</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </x-panel>
         </div>
         <div class="content-container d-flex flex-column flex-grow-1">

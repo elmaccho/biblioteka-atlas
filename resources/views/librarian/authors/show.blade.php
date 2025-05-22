@@ -8,6 +8,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th></th>
                     <th>ID</th>
                     <th>Imię i nazwisko</th>
                     <th>Akcje</th>
@@ -16,6 +17,7 @@
             <tbody>
                 @foreach ($autorzy as $autor)
                     <tr>
+                        <td>{{ $loop->index+1 }}</td>
                         <td>{{ $autor->id }}</td>
                         <td>{{ $autor->name }}</td>
                         <td>

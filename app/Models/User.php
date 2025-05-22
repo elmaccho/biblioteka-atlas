@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Rezerwacja::class);
     }
+    public function wypozyczenia()
+    {
+        return $this->hasMany(Wypozyczenie::class);
+    }
 }
