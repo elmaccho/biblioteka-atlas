@@ -108,7 +108,6 @@
                         </div>
                     </div>
 
-
                     <div class="rezerwacje-panel mb-2">
                         <h2 class="accordion-header">
                             <button class="link-button p-0" type="button" data-bs-toggle="collapse"
@@ -154,24 +153,6 @@
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
                                     href="{{ route('librarian.rentals', 'archive') }}">
                                     <span>Archiwum</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="hisoperacji-panel mb-2">
-                        <h2 class="accordion-header">
-                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true"
-                                aria-controls="panelsStayOpen-collapseFour">
-                                <i class="fa-solid fa-file"></i>
-                                <span>Historia operacji</span>
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
-                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
-                                    <span>Operacje użytkownika</span>
                                 </a>
                             </div>
                         </div>

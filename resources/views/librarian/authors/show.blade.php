@@ -9,7 +9,6 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>ID</th>
                     <th>Imię i nazwisko</th>
                     <th>Akcje</th>
                 </tr>
@@ -18,7 +17,6 @@
                 @foreach ($autorzy as $autor)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $autor->id }}</td>
                         <td>{{ $autor->name }}</td>
                         <td>
                             <a href="{{ route('librarian.authors.edit', $autor->id) }}" class="btn btn-primary btn-sm">Edytuj</a>

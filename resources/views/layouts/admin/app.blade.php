@@ -138,7 +138,6 @@
                         </div>
                     </div>
                 </div>
-
             </x-panel>
         </div>
         <div class="content-container d-flex flex-column flex-grow-1">
