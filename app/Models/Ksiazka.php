@@ -18,7 +18,6 @@ class Ksiazka extends Model
         'kategoria_id',
         'autor_id',
         'img_src',
-        'is_blocked',
     ];
 
     public function kategoria()

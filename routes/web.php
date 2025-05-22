@@ -41,15 +41,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/rezerwacje/{page?}', [LibrarianPanelController::class, 'reservations'])->name('reservations');
         
 
-
-
-
         // Funkcjonalności książki
         Route::get('/ksiazka/{id}/edit', [LibrarianPanelController::class, 'edit'])->name('books.edit');
         Route::put('/ksiazka/{id}', [LibrarianPanelController::class, 'update'])->name('books.update');
         Route::delete('/ksiazka/{id}', [LibrarianPanelController::class, 'destroy'])->name('books.destroy');
+        Route::post('/ksiazka', [LibrarianPanelController::class, 'store'])->name('books.store');
 
 
+        // Autorzy
+        Route::get('/autorzy', [LibrarianPanelController::class, 'authors'])->name('authors');
+        Route::get('/autorzy/nowy', [LibrarianPanelController::class, 'createAuthor'])->name('authors.create');
+        Route::post('/autorzy', [LibrarianPanelController::class, 'storeAuthor'])->name('authors.store');
+        Route::get('/autorzy/{id}/edit', [LibrarianPanelController::class, 'editAuthor'])->name('authors.edit');
+        Route::put('/autorzy/{id}', [LibrarianPanelController::class, 'updateAuthor'])->name('authors.update');
+        Route::delete('/autorzy/{id}', [LibrarianPanelController::class, 'destroyAuthor'])->name('authors.destroy');
 
 
 

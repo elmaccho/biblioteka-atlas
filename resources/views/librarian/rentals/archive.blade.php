@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($wypozyczenia as $wypo)
+                    @forelse ($wypozyczenia->whereNotNull('returned_at') as $wypo)
                         <tr>
                             <td>{{ $wypo->ksiazka->tytul }}</td>
                             <td>{{ $wypo->borrowed_at }}</td>

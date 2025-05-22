@@ -16,12 +16,12 @@
 
     <!-- Scripts -->
     @vite([
-    'resources/css/app.css',
-    'resources/js/app.js',
-    'resources/css/panel/panel.css',
-    'resources/css/upper-menu.css',
-    'resources/js/side-menu.js'
-])
+        'resources/css/app.css',
+        'resources/js/app.js',
+        'resources/css/panel/panel.css',
+        'resources/css/upper-menu.css',
+        'resources/js/side-menu.js'
+    ])
 </head>
 
 <body class="overflow-hidden">
@@ -49,12 +49,10 @@
                         </h2>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
                                     <span>Wyślij przypomnienie</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
                                     <span>Historia wysłanych wiadomości</span>
                                 </a>
                             </div>
@@ -72,20 +70,41 @@
                         </h2>
                         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('librarian.books', 'new') }}">
                                     <span>Dodaj książkę</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('librarian.books', 'show') }}">
-                                    <span>Wyświetl książki</span>
-                                </a>
-                    
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('librarian.books', 'authors') }}">
-                                    <span>Kategorie i autorzy</span>
+                                    href="{{ route('librarian.books', 'show') }}">
+                                    <span>Wyświetl książki</span>
                                 </a>
                             </div>
                         </div>
                     </div>
+
+                    <div class="authors-panel mb-2">
+                        <h2 class="accordion-header">
+                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseAuthor" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseAuthor">
+                                <i class="fa-solid fa-user-pen"></i>
+                                <span>Autorzy</span>
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseAuthor" class="accordion-collapse collapse">
+                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('librarian.authors.create') }}">
+                                    <span>Dodaj autora</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('librarian.authors') }}">
+                                    <span>Wyświetl autorów</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="rezerwacje-panel mb-2">
                         <h2 class="accordion-header">
@@ -148,8 +167,7 @@
                         </h2>
                         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
                                     <span>Operacje użytkownika</span>
                                 </a>
                             </div>
@@ -167,16 +185,13 @@
                         </h2>
                         <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
                                     <span>Wyświetl użytkowników</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
                                     <span>Historia wypożyczeń</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
                                     <span>Historia rezerwacji</span>
                                 </a>
                             </div>

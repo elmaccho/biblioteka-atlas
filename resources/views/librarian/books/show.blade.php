@@ -46,7 +46,7 @@
 
                                 <form action="{{ route('librarian.books.destroy', $ksiazka->id) }}" method="POST"
                                       class="d-inline"
-                                      onsubmit="return confirm('Na pewno chcesz usunąć tę jeb... książkę?');">
+                                      onsubmit="return confirm('Na pewno chcesz usunąć książkę?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">Usuń</button>
@@ -55,7 +55,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="11">Nie znaleziono żadnych książek, ty pusty półmózgu...</td>
+                            <td colspan="11">Nie znaleziono książek</td>
                         </tr>
                     @endforelse
                 </tbody>
