@@ -26,47 +26,56 @@ Route::middleware('auth')->group(function () {
     Route::get('/moje_wypozyczenia', [WypozyczeniaController::class, 'index'])->name('wypozyczenia.index');
 
     Route::middleware(['auth', 'role:admin'])->prefix('panel-administracyjny')->name('admin.')->group(function () {
+        // == DASHBOARD GŁÓWNY ==
         Route::get('/', [AdminPanelController::class, 'index'])->name('index');
 
-        Route::get('/uzytkownicy/{page?}', [AdminPanelController::class, 'users'])
-            ->where('page', 'index|activity_report')
-            ->name('users');
+        // == KSIĄŻKI ==
+        Route::get('/ksiazki/{page?}', [AdminPanelController::class, 'books'])->name('books');
+        Route::post('/ksiazka', [AdminPanelController::class, 'store'])->name('books.store');
+        Route::get('/ksiazka/{id}/edit', [AdminPanelController::class, 'edit'])->name('books.edit');
+        Route::put('/ksiazka/{id}', [AdminPanelController::class, 'update'])->name('books.update');
+        Route::delete('/ksiazka/{id}', [AdminPanelController::class, 'destroy'])->name('books.destroy');
+
+
+        // == AUTORZY ==
+        Route::get('/autorzy', [AdminPanelController::class, 'authors'])->name('authors');
+        Route::get('/autorzy/nowy', [AdminPanelController::class, 'createAuthor'])->name('authors.create');
+        Route::post('/autorzy', [AdminPanelController::class, 'storeAuthor'])->name('authors.store');
+        Route::get('/autorzy/{id}/edit', [AdminPanelController::class, 'editAuthor'])->name('authors.edit');
+        Route::put('/autorzy/{id}', [AdminPanelController::class, 'updateAuthor'])->name('authors.update');
+        Route::delete('/autorzy/{id}', [AdminPanelController::class, 'destroyAuthor'])->name('authors.destroy');
+
+
+        // == UŻYTKOWNICY ==
+        Route::get('/uzytkownicy', [AdminPanelController::class, 'users'])->name('users');
+        Route::get('/uzytkownicy/{id}/profil', [AdminPanelController::class, 'userProfile'])->name('users.profile');
+        Route::post('/uzytkownicy/{id}/dodaj-wypozyczenie', [AdminPanelController::class, 'addRental'])->name('users.rental');
+        Route::post('/uzytkownicy/{id}/dodaj-rezerwacje', [AdminPanelController::class, 'addReservation'])->name('users.reservation');
     });
 
     Route::middleware(['auth', 'role:librarian|admin'])->prefix('panel-bibliotekarza')->name('librarian.')->group(function () {
+        // == DASHBOARD GŁÓWNY ==
         Route::get('/', [LibrarianPanelController::class, 'index'])->name('index');
 
+        // == KSIĄŻKI ==
         Route::get('/ksiazki/{page?}', [LibrarianPanelController::class, 'books'])->name('books');
-        Route::get('/wypozyczenia/{page?}', [LibrarianPanelController::class, 'rentals'])->name('rentals');
-        Route::get('/rezerwacje/{page?}', [LibrarianPanelController::class, 'reservations'])->name('reservations');
-
-        // Funkcjonalności książki
         Route::get('/ksiazka/{id}/edit', [LibrarianPanelController::class, 'edit'])->name('books.edit');
         Route::put('/ksiazka/{id}', [LibrarianPanelController::class, 'update'])->name('books.update');
-        Route::delete('/ksiazka/{id}', [LibrarianPanelController::class, 'destroy'])->name('books.destroy');
-        Route::post('/ksiazka', [LibrarianPanelController::class, 'store'])->name('books.store');
 
-        // Autorzy
-        Route::get('/autorzy', [LibrarianPanelController::class, 'authors'])->name('authors');
-        Route::get('/autorzy/nowy', [LibrarianPanelController::class, 'createAuthor'])->name('authors.create');
-        Route::post('/autorzy', [LibrarianPanelController::class, 'storeAuthor'])->name('authors.store');
-        Route::get('/autorzy/{id}/edit', [LibrarianPanelController::class, 'editAuthor'])->name('authors.edit');
-        Route::put('/autorzy/{id}', [LibrarianPanelController::class, 'updateAuthor'])->name('authors.update');
-        Route::delete('/autorzy/{id}', [LibrarianPanelController::class, 'destroyAuthor'])->name('authors.destroy');
+        // == WYPOŻYCZENIA ==
+        Route::get('/wypozyczenia/{page?}', [LibrarianPanelController::class, 'rentals'])->name('rentals');
+        Route::patch('/wypozyczenia/{id}/return', [LibrarianPanelController::class, 'return'])->name('wypozyczenie.return');
 
-        // Użytkownicy
+        // == REZERWACJE ==
+        Route::get('/rezerwacje/{page?}', [LibrarianPanelController::class, 'reservations'])->name('reservations');
+        Route::patch('/rezerwacje/{id}/cancel', [LibrarianPanelController::class, 'cancel'])->name('rezerwacje.cancel');
+        Route::patch('/rezerwacje/{id}/realize', [LibrarianPanelController::class, 'realize'])->name('rezerwacje.realize');
+
+        // == UŻYTKOWNICY ==
         Route::get('/uzytkownicy', [LibrarianPanelController::class, 'users'])->name('users');
         Route::get('/uzytkownicy/{id}/profil', [LibrarianPanelController::class, 'userProfile'])->name('users.profile');
         Route::post('/uzytkownicy/{id}/dodaj-wypozyczenie', [LibrarianPanelController::class, 'addRental'])->name('users.rental');
         Route::post('/uzytkownicy/{id}/dodaj-rezerwacje', [LibrarianPanelController::class, 'addReservation'])->name('users.reservation');
-
-
-        // Funkcjonalności rezerwacji
-        Route::patch('/rezerwacje/{id}/cancel', [LibrarianPanelController::class, 'cancel'])->name('rezerwacje.cancel');
-        Route::patch('/rezerwacje/{id}/realize', [LibrarianPanelController::class, 'realize'])->name('rezerwacje.realize');
-
-        // Funkcjonalności wypożyczenia
-        Route::patch('/wypozyczenia/{id}/return', [LibrarianPanelController::class, 'return'])->name('wypozyczenie.return');
     });
 });
 

@@ -26,15 +26,8 @@ class LibrarianPanelController extends Controller
         $autorzy = Autor::all();
         $kategorie = Kategoria::all();
 
-        $allowedPages = ['show', 'new', 'edit', 'authors'];
+        $allowedPages = ['show', 'edit'];
         return $this->renderView('books', $page, $allowedPages, compact('ksiazki', 'autorzy', 'kategorie'));
-    }
-    public function destroy($id)
-    {
-        $ksiazka = Ksiazka::findOrFail($id);
-        $ksiazka->delete();
-
-        return redirect()->back()->with('success', 'Książka została usunięta.');
     }
     public function edit($id)
     {
@@ -72,78 +65,6 @@ class LibrarianPanelController extends Controller
 
         return redirect()->route('librarian.books', 'show')->with('success', 'Książka zaktualizowana.');
     }
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'tytul' => 'required|string|max:255',
-            'opis' => 'nullable|string',
-            'amount' => 'required|integer|min:0',
-            'img_src' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'autor_id' => 'required|integer',
-            'kategoria_id' => 'required|integer'
-        ]);
-
-        if ($request->hasFile('img_src')) {
-            $path = $request->file('img_src')->store('books', 'public');
-            $validated['img_src'] = $path;
-        }
-
-        // dd($validated);
-
-        Ksiazka::create($validated);
-
-        return redirect()->route('librarian.books', 'show')->with('success', 'Dodano nową książkę.');
-    }
-
-
-    // Autorzy
-    public function authors($page = 'show')
-    {
-        $autorzy = Autor::orderBy('created_at', 'desc')->paginate(20);
-
-        $allowedPages = ['show', 'new', 'edit'];
-        return $this->renderView('authors', $page, $allowedPages, compact('autorzy'));
-    }
-    public function createAuthor()
-    {
-        return view('librarian.authors.new');
-    }
-    public function storeAuthor(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
-        Autor::create($validated);
-
-        return redirect()->route('librarian.authors')->with('success', 'Autor dodany.');
-    }
-    public function editAuthor($id)
-    {
-        $autor = Autor::findOrFail($id);
-        return view('librarian.authors.edit', compact('autor'));
-    }
-    public function updateAuthor(Request $request, $id)
-    {
-        $autor = Autor::findOrFail($id);
-
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
-        $autor->update($validated);
-
-        return redirect()->route('librarian.authors')->with('success', 'Autor zaktualizowany.');
-    }
-    public function destroyAuthor($id)
-    {
-        $autor = Autor::findOrFail($id);
-        $autor->delete();
-
-        return redirect()->route('librarian.authors')->with('success', 'Autor usunięty.');
-    }
-
-
 
     // Wypożyczenia
     public function rentals($page = 'index')

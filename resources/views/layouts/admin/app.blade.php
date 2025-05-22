@@ -13,6 +13,10 @@
 
     {{-- FontAwesome --}}
     <script src="https://kit.fontawesome.com/4798a03daf.js" crossorigin="anonymous"></script>
+
+    {{-- SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Scripts -->
     @vite([
         'resources/css/app.css',
@@ -49,7 +53,7 @@
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
-                                    <span>Przypomnienia o zwrocie</span>
+                                    <span>Raporty powiadomień</span>
                                 </a>
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
                                     <span>Historia powiadomień</span>
@@ -58,28 +62,47 @@
                         </div>
                     </div>
 
-                    <div class="zasoby-panel mb-2">
+                    <div class="katalog-panel mb-2">
                         <h2 class="accordion-header">
                             <button class="link-button p-0" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
                                 aria-controls="panelsStayOpen-collapseTwo">
                                 <i class="fa-solid fa-book"></i>
-                                <span>Zasoby biblioteki</span>
+                                <span>Katalog książek</span>
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('admin.books', 'show') }}">
                                     <span>Wyświetl książki</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
-                                    <span>Dodaj nową książkę</span>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('admin.books', 'new') }}">
+                                    <span>Dodaj książkę</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
-                                    <span>Edytuj książkę</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="authors-panel mb-2">
+                        <h2 class="accordion-header">
+                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseAuthor" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseAuthor">
+                                <i class="fa-solid fa-user-pen"></i>
+                                <span>Autorzy</span>
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseAuthor" class="accordion-collapse collapse">
+                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('admin.authors.create') }}">
+                                    <span>Dodaj autora</span>
                                 </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
-                                    <span>Kategorie i autorzy</span>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('admin.authors') }}">
+                                    <span>Wyświetl autorów</span>
                                 </a>
                             </div>
                         </div>
@@ -147,5 +170,67 @@
         </div>
     </div>
 </body>
+<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+
+    @if(session('success'))
+        Toast.fire({
+            icon: 'success',
+            title: '{{ session('success') }}'
+        });
+    @endif
+
+    @if(session('error'))
+        Toast.fire({
+            icon: 'error',
+            title: '{{ session('error') }}'
+        });
+    @endif
+
+    @if(session('warning'))
+        Toast.fire({
+            icon: 'warning',
+            title: '{{ session('warning') }}'
+        });
+    @endif
+
+    @if(session('info'))
+        Toast.fire({
+            icon: 'info',
+            title: '{{ session('info') }}'
+        });
+    @endif
+
+
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Na pewno chcesz usunąć?',
+                text: 'Tej akcji nie można cofnąć!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Usuń!',
+                cancelButtonText: 'Jednak nie'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
 
 </html>

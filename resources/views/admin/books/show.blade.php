@@ -1,11 +1,11 @@
-@extends('layouts.librarian.app')
+@extends('layouts.admin.app')
 @vite('resources/css/home-page.css')
 @section('panel_content')
     <div class="main-container">
         <div class="container mt-5">
             <h2 class="mb-4">Lista książek</h2>
 
-            {{-- <a href="{{ route('librarian.books.create') }}" class="btn btn-success mb-3">Dodaj nową książkę</a> --}}
+            {{-- <a href="{{ route('admin.books.create') }}" class="btn btn-success mb-3">Dodaj nową książkę</a> --}}
 
             <table class="table table-bordered table-hover align-middle">
                 <thead class="table-light">
@@ -41,7 +41,14 @@
                             <td>{{ $ksiazka->created_at?->format('Y-m-d') }}</td>
                             <td>{{ $ksiazka->updated_at?->format('Y-m-d') }}</td>
                             <td>
-                                <a href="{{ route('librarian.books.edit', $ksiazka->id) }}" class="btn btn-sm btn-warning">Edytuj</a>
+                                <a href="{{ route('admin.books.edit', $ksiazka->id) }}" class="btn btn-sm btn-warning">Edytuj</a>
+
+                                <form action="{{ route('admin.books.destroy', $ksiazka->id) }}" method="POST"
+                                      class="d-inline delete-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Usuń</button>
+                                </form>
                             </td>
                         </tr>
                     @empty

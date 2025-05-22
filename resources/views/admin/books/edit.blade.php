@@ -1,10 +1,10 @@
-@extends('layouts.librarian.app')
+@extends('layouts.admin.app')
 @vite('resources/css/home-page.css')
 @section('panel_content')
     <div class="main-container">
         <h2>Edytuj książkę: {{ $ksiazka->tytul }}</h2>
 
-        <form method="POST" action="{{ route('librarian.books.update', $ksiazka->id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.books.update', $ksiazka->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 

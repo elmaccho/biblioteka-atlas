@@ -74,35 +74,8 @@
                         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('librarian.books', 'new') }}">
-                                    <span>Dodaj książkę</span>
-                                </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
                                     href="{{ route('librarian.books', 'show') }}">
                                     <span>Wyświetl książki</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="authors-panel mb-2">
-                        <h2 class="accordion-header">
-                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#panelsStayOpen-collapseAuthor" aria-expanded="true"
-                                aria-controls="panelsStayOpen-collapseAuthor">
-                                <i class="fa-solid fa-user-pen"></i>
-                                <span>Autorzy</span>
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseAuthor" class="accordion-collapse collapse">
-                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('librarian.authors.create') }}">
-                                    <span>Dodaj autora</span>
-                                </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('librarian.authors') }}">
-                                    <span>Wyświetl autorów</span>
                                 </a>
                             </div>
                         </div>
