@@ -1,7 +1,7 @@
 <script src="https://kit.fontawesome.com/4798a03daf.js" crossorigin="anonymous"></script>
 
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}" class="d-flex flex-column">
+    <form method="POST" action="{{ route('register') }}" class="d-flex flex-column ps-4 pe-4">
         @csrf
 
         <!-- Name -->
