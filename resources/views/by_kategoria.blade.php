@@ -13,9 +13,13 @@
         </div>
         <h2 class="h1">{{ $kategoria->nazwa }}</h2>
         <div class="books-container">
-            @foreach ($ksiazki as $ksiazka)
+            @forelse ($ksiazki as $ksiazka)
                 <x-book-card :ksiazka="$ksiazka" :user="$user" />
-            @endforeach
+                @empty
+                <div class="row d-flex justify-content-start w-100 mt-3">
+                    <p class="text-dark p-0">Brak książek w wybranej kategorii</p>
+                </div>
+            @endforelse
         </div>
         <div class="d-flex justify-content-end mt-3">
             {{ $ksiazki->links() }}

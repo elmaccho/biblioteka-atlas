@@ -70,9 +70,11 @@ class LibrarianPanelController extends Controller
     public function rentals($page = 'index')
     {
         $wypozyczenia = Wypozyczenie::orderBy('borrowed_at', 'desc')->paginate(20);
-
+        $ksiazki = Ksiazka::select('id', 'tytul')->get();
+        $users = User::select('id', 'name', 'lastname', 'email')->get();
+        
         $allowedPages = ['index', 'new', 'archive', 'active'];
-        return $this->renderView('rentals', $page, $allowedPages, compact('wypozyczenia'));
+        return $this->renderView('rentals', $page, $allowedPages, compact('wypozyczenia', 'ksiazki', 'users'));
     }
     public function return($id)
     {
@@ -86,6 +88,31 @@ class LibrarianPanelController extends Controller
         $ksiazka->save();
 
         return redirect()->back()->with('success', 'Dodano zwrot');
+    }
+    public function storeRental(Request $request){
+        $validated = $request->validate([
+            'user_id' => 'required|integer',
+            'ksiazka_id' => 'required|exists:ksiazki,id',
+            'due_date' => 'required|date|after_or_equal:today',
+        ]);
+
+        $ksiazka = Ksiazka::findOrFail($validated['ksiazka_id']);
+        if ($ksiazka->amount <= 0) {
+            return redirect()->back()->with('error', 'Brak dostępnych egzemplarzy.');
+        }
+
+        $ksiazka->amount--;
+        $ksiazka->save();
+
+        Wypozyczenie::create([
+            'user_id' => $validated['user_id'],
+            'ksiazka_id' => $validated['ksiazka_id'],
+            'borrowed_at' => now(),
+            'due_date' => $validated['due_date'],
+            'returned_at' => null,
+        ]);
+
+        return redirect()->back()->with('success', 'Wypożyczenie dodane.');
     }
 
 
@@ -122,8 +149,8 @@ class LibrarianPanelController extends Controller
         Wypozyczenie::create([
             'user_id' => $rez->user->id,
             'ksiazka_id' => $ksiazka->id,
-            'borrowed_at' => today(),
-            'due_date' => today()->addDays(30),
+            'borrowed_at' => now(),
+            'due_date' => now()->addDays(30),
         ]);
 
         return redirect()->back()->with('success', 'Rezerwacja zrealizowana.');
@@ -187,7 +214,7 @@ class LibrarianPanelController extends Controller
             'ksiazka_id' => $validated['ksiazka_id'],
             'borrowed_at' => now(),
             'due_date' => $validated['due_date'],
-            'returned_at' => null, // jeszcze nie zwrócone
+            'returned_at' => null,
         ]);
 
         return redirect()->back()->with('success', 'Wypożyczenie dodane.');

@@ -24,7 +24,7 @@
             <div class="side-menu-user-links">
 
                 {{-- Historia wypożyczeń --}}
-                <a class="link-button" href="{{ route('home') }}">
+                <a class="link-button" href="{{ route('wypozyczenia.historia') }}">
                     <i class="fa-solid fa-calendar-days"></i>
                     <span>Historia wypożyczeń</span>
                 </a>

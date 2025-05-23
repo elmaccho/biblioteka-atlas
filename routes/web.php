@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/rezerwacje', [RezerwacjaController::class, 'store'])->name('rezerwacje.store');
     Route::get('/moje_wypozyczenia', [WypozyczeniaController::class, 'index'])->name('wypozyczenia.index');
+    Route::get('/historia_wypozyczen', [WypozyczeniaController::class, 'history'])->name('wypozyczenia.historia');
 
     Route::middleware(['auth', 'role:admin'])->prefix('panel-administracyjny')->name('admin.')->group(function () {
         // == DASHBOARD GŁÓWNY ==
@@ -65,6 +66,7 @@ Route::middleware('auth')->group(function () {
         // == WYPOŻYCZENIA ==
         Route::get('/wypozyczenia/{page?}', [LibrarianPanelController::class, 'rentals'])->name('rentals');
         Route::patch('/wypozyczenia/{id}/return', [LibrarianPanelController::class, 'return'])->name('wypozyczenie.return');
+        Route::post('/wypozyczenia/dodaj_wypozyczenie', [LibrarianPanelController::class, 'storeRental'])->name('wypozyczenie.dodaj');
 
         // == REZERWACJE ==
         Route::get('/rezerwacje/{page?}', [LibrarianPanelController::class, 'reservations'])->name('reservations');

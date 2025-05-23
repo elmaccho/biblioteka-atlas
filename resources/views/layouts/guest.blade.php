@@ -16,7 +16,7 @@
     </head>
     <body class="d-flex justify-content-center align-items-center">
         <div class="d-flex flex-column">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mb-3">
                 <a href="/" class="text-decoration-none">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                 </a>
