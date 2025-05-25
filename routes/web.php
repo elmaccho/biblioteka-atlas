@@ -18,11 +18,13 @@ Route::get('/kategoria/{id}/ksiazki', [KsiazkaController::class, 'byKategoria'])
 
 Route::middleware('auth')->group(function () {
     Route::get('/moje_rezerwacje', [RezerwacjaController::class, 'index'])->name('rezerwacje.index');
+
     Route::get('/ustawienia', [UserController::class, 'edit'])->name('ustawienia');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/rezerwacje', [RezerwacjaController::class, 'store'])->name('rezerwacje.store');
+    Route::patch('/rezerwacje/{id}/anuluj', [RezerwacjaController::class, 'cancel'])->name('rezerwacja.cancel');
     Route::get('/moje_wypozyczenia', [WypozyczeniaController::class, 'index'])->name('wypozyczenia.index');
     Route::get('/historia_wypozyczen', [WypozyczeniaController::class, 'history'])->name('wypozyczenia.historia');
 

@@ -22,11 +22,12 @@
                             <td>{{ $rez->reserved_at }}</td>
                             <td><span class="badge bg-success">Aktywna</span></td>
                             <td>
-                                {{-- <form method="POST" action="{{ route('rezerwacje.cancel', $rez->id) }}">
+                                <form action="{{ route('rezerwacja.cancel', $rez->id) }}" method="POST"
+                                    class="d-inline">
                                     @csrf
-                                    @method('PATCH') --}}
-                                    <button class="btn btn-sm btn-danger">Anuluj</button>
-                                {{-- </form> --}}
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-sm btn-danger">Anuluj</button>
+                                </form>
                             </td>
                         </tr>
                     @empty
@@ -43,6 +44,7 @@
                     <tr>
                         <th>Książka</th>
                         <th>Zarezerwowano</th>
+                        <th>Anulowano</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -51,6 +53,7 @@
                         <tr>
                             <td>{{ $rez->ksiazka->tytul }}</td>
                             <td>{{ $rez->reserved_at }}</td>
+                            <td>{{ $rez->cancelled_at }}</td>
                             <td>
                                 @if ($rez->cancelled_at)
                                     <span class="badge bg-secondary">Anulowana</span>

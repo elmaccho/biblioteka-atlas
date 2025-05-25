@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ksiazka;
+use App\Models\Powiadomienie;
 use App\Models\Rezerwacja;
 use Illuminate\Http\Request;
 
@@ -31,7 +33,7 @@ class RezerwacjaController extends Controller
             ->exists();
 
         if ($maAktywnaRezerwacje) {
-            return back()->withErrors('Już masz aktywną rezerwację tej książki, ty chciwy śmieciu.');
+            return back()->withErrors('Już masz aktywną rezerwację tej książki.');
         }
 
         Rezerwacja::create([
@@ -42,6 +44,29 @@ class RezerwacjaController extends Controller
             'zrealizowano' => false,
         ]);
 
-        return back()->with('success', 'Książka zarezerwowana. Ciesz się, baranie.');
+        $ksiazka = Ksiazka::findOrFail($ksiazkaId);
+
+        Powiadomienie::create([
+            'user_id' => $userId,
+            'tresc' => 'Zarezerwowano książkę: '.$ksiazka->tytul
+        ]);
+
+        return back()->with('success', 'Książka zarezerwowana.');
+    }
+    public function cancel($id)
+    {
+        $rez = Rezerwacja::findOrFail($id);
+        $rez->cancelled_at = now();
+        $rez->save();
+        
+        
+        $user = $rez->user;
+        $ksiazka = $rez->ksiazka;
+        Powiadomienie::create([
+            'user_id' => $user->id,
+            'tresc' => 'Anulowano rezerwację książki: '.$ksiazka->tytul
+        ]);
+
+        return redirect()->back()->with('success', 'Rezerwacja została anulowana');
     }
 }
