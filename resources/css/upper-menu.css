@@ -11,6 +11,7 @@
 .search-bar-input{
     width: 500px;
     height: 35px;
+    text-indent: 15px;
 }
 .user-action-container{
     color: white;

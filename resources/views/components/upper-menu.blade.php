@@ -7,10 +7,15 @@
 
     @if ($user)
         <div class="user-action-container d-flex align-items-center gap-3">
-            <a href="{{ route('home') }}">
+            <a href="{{ route('home') }}" class="position-relative d-inline-block">
                 <i class="fa-regular fa-bell text-light"></i>
+                @if ($user->hasNotifications())
+                    <span
+                        class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                        <span class="visually-hidden">New alerts</span>
+                    </span>
+                @endif
             </a>
-
 
             <div class="dropdown d-flex gap-2">
                 @if ($user->profile_img_src != null)
@@ -21,43 +26,43 @@
                 <button class="bg-transparent text-light border-0 dropdown-toggle d-flex align-items-center gap-1" type="button"
                     id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ $user->name }}
-                </button>
+                    </button>
 
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <li>
-                        <a href="{{ route('home') }}" class="dropdown-item text-dark">
-                            Profil
-                        </a>
-                    </li>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li>
+                            <a href="{{ route('home') }}" class="dropdown-item text-dark">
+                                Profil
+                            </a>
+                        </li>
 
-                    @if ($user->hasRole('librarian'))
-                        <li>
-                            <a href="{{ route('librarian.index') }}" class="dropdown-item text-dark">
-                                Panel Bibliotekarza
-                            </a>
+                        @if ($user->hasRole('librarian'))
+                            <li>
+                                <a href="{{ route('librarian.index') }}" class="dropdown-item text-dark">
+                                    Panel Bibliotekarza
+                                </a>
+                            </li>
+                            @elseif ($user->hasRole(['admin', 'bibliotekarz']))
+                            <li>
+                                <a href="{{ route('admin.index') }}" class="dropdown-item text-dark">
+                                    Panel Administracyjny
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('librarian.index') }}" class="dropdown-item text-dark">
+                                    Panel Bibliotekarza
+                                </a>
+                            </li>
+                            @endif
+                            <li>
+                            <form method="POST" action="{{ route('logout') }}" class="m-0">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-dark">
+                                    Wyloguj się
+                                </button>
+                            </form>
                         </li>
-                        @elseif ($user->hasRole(['admin', 'bibliotekarz']))
-                        <li>
-                            <a href="{{ route('admin.index') }}" class="dropdown-item text-dark">
-                                Panel Administracyjny
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('librarian.index') }}" class="dropdown-item text-dark">
-                                Panel Bibliotekarza
-                            </a>
-                        </li>
-                        @endif
-                        <li>
-                        <form method="POST" action="{{ route('logout') }}" class="m-0">
-                            @csrf
-                            <button type="submit" class="dropdown-item text-dark">
-                                Wyloguj się
-                            </button>
-                        </form>
-                    </li>
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
     @endif
 </div>

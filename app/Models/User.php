@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+use function PHPUnit\Framework\isNull;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -59,5 +61,9 @@ class User extends Authenticatable
     public function powiadomienia()
     {
         return $this->hasMany(Powiadomienie::class);
+    }
+    public function hasNotifications()
+    {
+        return $this->powiadomienia()->where('read_at', null)->count();
     }
 }
