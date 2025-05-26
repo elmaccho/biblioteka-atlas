@@ -182,6 +182,7 @@ class AdminPanelController extends Controller
             'rezerwacjeAnulowane'
         ));
     }
+    // Dodanie wypożyczenia dla użytkownika
     public function addRental(Request $request, $id)
     {
         $validated = $request->validate([
@@ -202,11 +203,17 @@ class AdminPanelController extends Controller
             'ksiazka_id' => $validated['ksiazka_id'],
             'borrowed_at' => now(),
             'due_date' => $validated['due_date'],
-            'returned_at' => null, // jeszcze nie zwrócone
+            'returned_at' => null,
+        ]);
+
+        Powiadomienie::create([
+            'user_id' => $id,
+            'tresc' => "Wypożyczono książkę: " . $ksiazka->tytul
         ]);
 
         return redirect()->back()->with('success', 'Wypożyczenie dodane.');
     }
+    // Dodanie rezerwacji dla użytkownika
     public function addReservation(Request $request, $id)
     {
         $validated = $request->validate([
@@ -218,6 +225,13 @@ class AdminPanelController extends Controller
             'ksiazka_id' => $validated['ksiazka_id'],
             'created_at' => now(),
             'zrealizowano' => false,
+        ]);
+
+        $ksiazka = Ksiazka::findOrFail($validated['ksiazka_id']);
+
+        Powiadomienie::create([
+            'user_id' => $id,
+            'tresc' => 'Zarezerwowano książkę: ' . $ksiazka->tytul
         ]);
 
         return redirect()->back()->with('success', 'Rezerwacja dodana.');
