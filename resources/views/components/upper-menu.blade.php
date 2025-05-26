@@ -7,7 +7,7 @@
 
     @if ($user)
         <div class="user-action-container d-flex align-items-center gap-3">
-            <a href="{{ route('home') }}" class="position-relative d-inline-block">
+            <a href="{{ route('powiadomienia.index') }}" class="position-relative d-inline-block">
                 <i class="fa-regular fa-bell text-light"></i>
                 @if ($user->hasNotifications())
                     <span

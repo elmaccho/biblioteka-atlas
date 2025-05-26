@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategorieController;
 use App\Http\Controllers\KsiazkaController;
 use App\Http\Controllers\Librarian\LibrarianPanelController;
+use App\Http\Controllers\PowiadomieniaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RezerwacjaController;
 use App\Http\Controllers\UserController;
@@ -27,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/rezerwacje/{id}/anuluj', [RezerwacjaController::class, 'cancel'])->name('rezerwacja.cancel');
     Route::get('/moje_wypozyczenia', [WypozyczeniaController::class, 'index'])->name('wypozyczenia.index');
     Route::get('/historia_wypozyczen', [WypozyczeniaController::class, 'history'])->name('wypozyczenia.historia');
+    Route::get('/powiadomienia', [PowiadomieniaController::class, 'index'])->name('powiadomienia.index');
+    Route::patch('/powiadomienia/{id}/przeczytaj', [PowiadomieniaController::class, 'marked'])->name('powiadomienia.przeczytaj');
 
     Route::middleware(['auth', 'role:admin'])->prefix('panel-administracyjny')->name('admin.')->group(function () {
         // == DASHBOARD GŁÓWNY ==
