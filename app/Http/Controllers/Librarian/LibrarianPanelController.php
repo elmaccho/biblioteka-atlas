@@ -73,7 +73,7 @@ class LibrarianPanelController extends Controller
         $wypozyczenia = Wypozyczenie::orderBy('borrowed_at', 'desc')->paginate(20);
         $ksiazki = Ksiazka::select('id', 'tytul')->get();
         $users = User::select('id', 'name', 'lastname', 'email')->get();
-        
+
         $allowedPages = ['index', 'new', 'archive', 'active'];
         return $this->renderView('rentals', $page, $allowedPages, compact('wypozyczenia', 'ksiazki', 'users'));
     }
@@ -90,7 +90,8 @@ class LibrarianPanelController extends Controller
 
         return redirect()->back()->with('success', 'Dodano zwrot');
     }
-    public function storeRental(Request $request){
+    public function storeRental(Request $request)
+    {
         $validated = $request->validate([
             'user_id' => 'required|integer',
             'ksiazka_id' => 'required|exists:ksiazki,id',
@@ -129,12 +130,12 @@ class LibrarianPanelController extends Controller
         $rez = Rezerwacja::findOrFail($id);
         $rez->cancelled_at = now();
         $rez->save();
-        
+
         $user = $rez->user;
         $ksiazka = $rez->ksiazka;
         Powiadomienie::create([
             'user_id' => $user->id,
-            'tresc' => 'Anulowano rezerwację książki: '.$ksiazka->tytul
+            'tresc' => 'Anulowano rezerwację książki: ' . $ksiazka->tytul
         ]);
 
         return redirect()->back()->with('success', 'Rezerwacja została anulowana');
@@ -227,8 +228,6 @@ class LibrarianPanelController extends Controller
 
         return redirect()->back()->with('success', 'Wypożyczenie dodane.');
     }
-
-
     // Dodanie rezerwacji dla użytkownika
     public function addReservation(Request $request, $id)
     {
@@ -246,6 +245,36 @@ class LibrarianPanelController extends Controller
         return redirect()->back()->with('success', 'Rezerwacja dodana.');
     }
 
+
+    // Przypomnienie o zbliżającym się zwrocie
+    public function showReminderForm()
+    {
+        $users = User::all();
+        $today = now()->startOfDay();
+        $fiveDaysLater = now()->addDays(5)->endOfDay();
+
+        $wypozyczenia = Wypozyczenie::whereNull('returned_at')
+            ->whereBetween('due_date', [$today, $fiveDaysLater])
+            ->get();
+
+        return view('librarian.notifications.index', compact('users', 'wypozyczenia'));
+    }
+
+    public function sendReminder(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'ksiazka_id' => 'required|exists:wypozyczenia,ksiazka_id',
+            'tresc' => 'required|string',
+        ]);
+
+        Powiadomienie::create([
+            'user_id' => $request->user_id,
+            'tresc' => $request->tresc,
+        ]);
+
+        return back()->with('success', 'Powiadomienie wysłane!');
+    }
 
 
     private function renderView($folder, $page, $allowedPages, $data = [])

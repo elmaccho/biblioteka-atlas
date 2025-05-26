@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Autor;
 use App\Models\Kategoria;
 use App\Models\Ksiazka;
+use App\Models\Powiadomienie;
 use App\Models\Rezerwacja;
 use App\Models\User;
 use App\Models\Wypozyczenie;
@@ -228,5 +229,15 @@ class AdminPanelController extends Controller
         }
 
         return view("admin.$folder.$page", $data);
+    }
+
+
+    // Powiadomienia
+    public function notifications($page = 'history')
+    {
+        $powiadomienia = Powiadomienie::paginate(20);
+
+        $allowedPages = ['history'];
+        return $this->renderView('notifications', $page, $allowedPages, compact('powiadomienia'));
     }
 }

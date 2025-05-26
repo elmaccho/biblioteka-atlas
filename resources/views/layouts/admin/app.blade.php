@@ -52,10 +52,7 @@
                         </h2>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
-                                    <span>Raporty powiadomień</span>
-                                </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('home') }}">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none" href="{{ route('admin.notifications.history') }}">
                                     <span>Historia powiadomień</span>
                                 </a>
                             </div>

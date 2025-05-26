@@ -57,6 +57,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/uzytkownicy/{id}/profil', [AdminPanelController::class, 'userProfile'])->name('users.profile');
         Route::post('/uzytkownicy/{id}/dodaj-wypozyczenie', [AdminPanelController::class, 'addRental'])->name('users.rental');
         Route::post('/uzytkownicy/{id}/dodaj-rezerwacje', [AdminPanelController::class, 'addReservation'])->name('users.reservation');
+        
+
+        // == POWIADOMIENIA ==
+        Route::get('/powiadomienia', [AdminPanelController::class, 'notifications'])->name('notifications.history');
     });
 
     Route::middleware(['auth', 'role:librarian|admin'])->prefix('panel-bibliotekarza')->name('librarian.')->group(function () {
@@ -83,6 +87,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/uzytkownicy/{id}/profil', [LibrarianPanelController::class, 'userProfile'])->name('users.profile');
         Route::post('/uzytkownicy/{id}/dodaj-wypozyczenie', [LibrarianPanelController::class, 'addRental'])->name('users.rental');
         Route::post('/uzytkownicy/{id}/dodaj-rezerwacje', [LibrarianPanelController::class, 'addReservation'])->name('users.reservation');
+    
+        // == POWIADOMIENIA ==
+        Route::get('/notifications/reminder', [LibrarianPanelController::class, 'showReminderForm'])->name('notifications.reminderForm');
+        Route::post('/notifications/send', [LibrarianPanelController::class, 'sendReminder'])->name('notifications.sendReminder');
     });
 });
 
