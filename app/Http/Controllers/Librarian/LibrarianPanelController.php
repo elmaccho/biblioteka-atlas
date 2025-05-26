@@ -88,6 +88,11 @@ class LibrarianPanelController extends Controller
         $ksiazka->amount += 1;
         $ksiazka->save();
 
+        Powiadomienie::create([
+            'user_id' => $wypo->user->id,
+            'tresc' => "Zwrócono książkę: ".$ksiazka->tytul
+        ]);
+
         return redirect()->back()->with('success', 'Dodano zwrot');
     }
     public function storeRental(Request $request)
@@ -112,6 +117,11 @@ class LibrarianPanelController extends Controller
             'borrowed_at' => now(),
             'due_date' => $validated['due_date'],
             'returned_at' => null,
+        ]);
+
+        Powiadomienie::create([
+            'user_id' => $validated['user_id'],
+            'tresc' => 'Wypożyczono książkę: '.$ksiazka->tytul
         ]);
 
         return redirect()->back()->with('success', 'Wypożyczenie dodane.');
@@ -160,6 +170,11 @@ class LibrarianPanelController extends Controller
             'ksiazka_id' => $ksiazka->id,
             'borrowed_at' => now(),
             'due_date' => now()->addDays(30),
+        ]);
+
+        Powiadomienie::create([
+            'user_id' => $rez->user->id,
+            'tresc' => 'Zrealizowano rezerwację dla książki: '.$ksiazka->tytul
         ]);
 
         return redirect()->back()->with('success', 'Rezerwacja zrealizowana.');
@@ -226,6 +241,11 @@ class LibrarianPanelController extends Controller
             'returned_at' => null,
         ]);
 
+        Powiadomienie::create([
+            'user_id' => $id,
+            'tresc' => "Wypożyczono książkę: ".$ksiazka->tytul
+        ]);
+
         return redirect()->back()->with('success', 'Wypożyczenie dodane.');
     }
     // Dodanie rezerwacji dla użytkownika
@@ -240,6 +260,13 @@ class LibrarianPanelController extends Controller
             'ksiazka_id' => $validated['ksiazka_id'],
             'created_at' => now(),
             'zrealizowano' => false,
+        ]);
+
+        $ksiazka = Ksiazka::findOrFail($validated['ksiazka_id']);
+
+        Powiadomienie::create([
+            'user_id' => $id,
+            'tresc' => 'Zarezerwowano książkę: '.$ksiazka->tytul
         ]);
 
         return redirect()->back()->with('success', 'Rezerwacja dodana.');
