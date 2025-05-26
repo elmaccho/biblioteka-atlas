@@ -27,8 +27,7 @@ class PowiadomieniaController extends Controller
             'action' => 'Przeczytano powiadomienie',
             'details' => [
                 'powiadomienie_id' => $powiadomienie->id,
-                'name' => auth()->user()->name,
-                'lastname' => auth()->user()->lastname,
+                'tresc' => $powiadomienie->tresc,
             ],
         ]);
 

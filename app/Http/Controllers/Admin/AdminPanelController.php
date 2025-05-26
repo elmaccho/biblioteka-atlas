@@ -328,7 +328,7 @@ class AdminPanelController extends Controller
     // System
     public function adminlogs()
     {
-        $adminlogs = Log::paginate(30);
+        $adminlogs = Log::orderBy('created_at', 'desc')->paginate(30);
     
         return view('admin.system.admin_log', compact('adminlogs'));
     }
