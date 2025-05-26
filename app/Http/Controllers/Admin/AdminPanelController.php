@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Autor;
 use App\Models\Kategoria;
 use App\Models\Ksiazka;
+use App\Models\Log;
 use App\Models\Powiadomienie;
 use App\Models\Rezerwacja;
 use App\Models\User;
@@ -35,6 +36,14 @@ class AdminPanelController extends Controller
     {
         $ksiazka = Ksiazka::findOrFail($id);
         $ksiazka->delete();
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Usunięcie książki',
+            'details' => [
+                'ksiazka' => $ksiazka->tytul,
+            ],
+        ]);
 
         return redirect()->back()->with('success', 'Książka została usunięta.');
     }
@@ -70,6 +79,14 @@ class AdminPanelController extends Controller
 
         // dd($validated);
 
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Edycja książki',
+            'details' => [
+                'ksiazka' => $ksiazka->tytul,
+            ],
+        ]);
+
         $ksiazka->update($validated);
 
         return redirect()->route('admin.books', 'show')->with('success', 'Książka zaktualizowana.');
@@ -93,6 +110,14 @@ class AdminPanelController extends Controller
         // dd($validated);
 
         Ksiazka::create($validated);
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Dodanie książki',
+            'details' => [
+                'ksiazka' => $validated['tytul'],
+            ],
+        ]);
 
         return redirect()->route('admin.books', 'show')->with('success', 'Dodano nową książkę.');
     }
@@ -120,6 +145,14 @@ class AdminPanelController extends Controller
 
         Autor::create($validated);
 
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Dodanie autora',
+            'details' => [
+                'autor' => $validated['name']
+            ],
+        ]);
+
         return redirect()->route('admin.authors')->with('success', 'Autor dodany.');
     }
     public function editAuthor($id)
@@ -137,12 +170,28 @@ class AdminPanelController extends Controller
 
         $autor->update($validated);
 
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Edycja autora',
+            'details' => [
+                'autor' => $validated['name']
+            ],
+        ]);
+
         return redirect()->route('admin.authors')->with('success', 'Autor zaktualizowany.');
     }
     public function destroyAuthor($id)
     {
         $autor = Autor::findOrFail($id);
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Usunięcie autora',
+            'details' => [
+                'autor' => $autor->name
+            ],
+        ]);
         $autor->delete();
+
 
         return redirect()->route('admin.authors')->with('success', 'Autor usunięty.');
     }
@@ -198,7 +247,7 @@ class AdminPanelController extends Controller
         $ksiazka->amount--;
         $ksiazka->save();
 
-        Wypozyczenie::create([
+        $wyp = Wypozyczenie::create([
             'user_id' => $id,
             'ksiazka_id' => $validated['ksiazka_id'],
             'borrowed_at' => now(),
@@ -211,6 +260,16 @@ class AdminPanelController extends Controller
             'tresc' => "Wypożyczono książkę: " . $ksiazka->tytul
         ]);
 
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Dodanie wypożyczenia',
+            'details' => [
+                'wypozyczenie_id' => $wyp->id,
+                'user_id' => $id,
+                'ksiazka_id' => $validated['ksiazka_id']
+            ],
+        ]);
+
         return redirect()->back()->with('success', 'Wypożyczenie dodane.');
     }
     // Dodanie rezerwacji dla użytkownika
@@ -220,7 +279,7 @@ class AdminPanelController extends Controller
             'ksiazka_id' => 'required|exists:ksiazki,id',
         ]);
 
-        Rezerwacja::create([
+        $rez = Rezerwacja::create([
             'user_id' => $id,
             'ksiazka_id' => $validated['ksiazka_id'],
             'created_at' => now(),
@@ -234,6 +293,16 @@ class AdminPanelController extends Controller
             'tresc' => 'Zarezerwowano książkę: ' . $ksiazka->tytul
         ]);
 
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Dodanie rezerwacji',
+            'details' => [
+                'rezerwacja_id' => $rez->id,
+                'user_id' => $id,
+                'ksiazka_id' => $validated['ksiazka_id']
+            ],
+        ]);
+
         return redirect()->back()->with('success', 'Rezerwacja dodana.');
     }
     private function renderView($folder, $page, $allowedPages, $data = [])
@@ -245,7 +314,6 @@ class AdminPanelController extends Controller
         return view("admin.$folder.$page", $data);
     }
 
-
     // Powiadomienia
     public function notifications($page = 'history')
     {
@@ -253,5 +321,15 @@ class AdminPanelController extends Controller
 
         $allowedPages = ['history'];
         return $this->renderView('notifications', $page, $allowedPages, compact('powiadomienia'));
+    }
+
+
+
+    // System
+    public function adminlogs()
+    {
+        $adminlogs = Log::paginate(30);
+    
+        return view('admin.system.admin_log', compact('adminlogs'));
     }
 }

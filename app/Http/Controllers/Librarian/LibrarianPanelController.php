@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Autor;
 use App\Models\Kategoria;
 use App\Models\Ksiazka;
+use App\Models\Log;
 use App\Models\Powiadomienie;
 use App\Models\Rezerwacja;
 use App\Models\User;
@@ -64,6 +65,15 @@ class LibrarianPanelController extends Controller
 
         $ksiazka->update($validated);
 
+        
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Zaktualizowano książkę',
+            'details' => [
+                'ksiazka_id' => $ksiazka->id
+            ],
+        ]);
+
         return redirect()->route('librarian.books', 'show')->with('success', 'Książka zaktualizowana.');
     }
 
@@ -93,6 +103,15 @@ class LibrarianPanelController extends Controller
             'tresc' => "Zwrócono książkę: ".$ksiazka->tytul
         ]);
 
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Zwrot książki',
+            'details' => [
+                'user_id' => $wypo->user->id,
+                'wypozyczenie_id' => $wypo->id
+            ],
+        ]);
+
         return redirect()->back()->with('success', 'Dodano zwrot');
     }
     public function storeRental(Request $request)
@@ -111,7 +130,7 @@ class LibrarianPanelController extends Controller
         $ksiazka->amount--;
         $ksiazka->save();
 
-        Wypozyczenie::create([
+        $wypo = Wypozyczenie::create([
             'user_id' => $validated['user_id'],
             'ksiazka_id' => $validated['ksiazka_id'],
             'borrowed_at' => now(),
@@ -122,6 +141,15 @@ class LibrarianPanelController extends Controller
         Powiadomienie::create([
             'user_id' => $validated['user_id'],
             'tresc' => 'Wypożyczono książkę: '.$ksiazka->tytul
+        ]);
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Wypożyczenie książki',
+            'details' => [
+                'wypozyczenie_id' => $wypo->id,
+                'ksiazka_id' => $ksiazka->id
+            ],
         ]);
 
         return redirect()->back()->with('success', 'Wypożyczenie dodane.');
@@ -143,9 +171,18 @@ class LibrarianPanelController extends Controller
 
         $user = $rez->user;
         $ksiazka = $rez->ksiazka;
+
         Powiadomienie::create([
             'user_id' => $user->id,
             'tresc' => 'Anulowano rezerwację książki: ' . $ksiazka->tytul
+        ]);
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Anulowanie rezerwacji',
+            'details' => [
+                'rezerwacja_id' => $rez->id
+            ],
         ]);
 
         return redirect()->back()->with('success', 'Rezerwacja została anulowana');
@@ -175,6 +212,14 @@ class LibrarianPanelController extends Controller
         Powiadomienie::create([
             'user_id' => $rez->user->id,
             'tresc' => 'Zrealizowano rezerwację dla książki: '.$ksiazka->tytul
+        ]);
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Zrealizowanie rezerwacji',
+            'details' => [
+                'rezerwacja_id' => $rez->id
+            ],
         ]);
 
         return redirect()->back()->with('success', 'Rezerwacja zrealizowana.');
@@ -233,7 +278,7 @@ class LibrarianPanelController extends Controller
         $ksiazka->amount--;
         $ksiazka->save();
 
-        Wypozyczenie::create([
+        $wyp = Wypozyczenie::create([
             'user_id' => $id,
             'ksiazka_id' => $validated['ksiazka_id'],
             'borrowed_at' => now(),
@@ -246,6 +291,14 @@ class LibrarianPanelController extends Controller
             'tresc' => "Wypożyczono książkę: ".$ksiazka->tytul
         ]);
 
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Wypożyczenie książki',
+            'details' => [
+                'wypozyczenie_id' => $wyp->id
+            ],
+        ]);
+
         return redirect()->back()->with('success', 'Wypożyczenie dodane.');
     }
     // Dodanie rezerwacji dla użytkownika
@@ -255,7 +308,7 @@ class LibrarianPanelController extends Controller
             'ksiazka_id' => 'required|exists:ksiazki,id',
         ]);
 
-        Rezerwacja::create([
+        $rez = Rezerwacja::create([
             'user_id' => $id,
             'ksiazka_id' => $validated['ksiazka_id'],
             'created_at' => now(),
@@ -267,6 +320,14 @@ class LibrarianPanelController extends Controller
         Powiadomienie::create([
             'user_id' => $id,
             'tresc' => 'Zarezerwowano książkę: '.$ksiazka->tytul
+        ]);
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Dodanie rezerwacji',
+            'details' => [
+                'rezerwacja_id' => $rez->id
+            ],
         ]);
 
         return redirect()->back()->with('success', 'Rezerwacja dodana.');
@@ -298,6 +359,15 @@ class LibrarianPanelController extends Controller
         Powiadomienie::create([
             'user_id' => $request->user_id,
             'tresc' => $request->tresc,
+        ]);
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Wysłanie przypomnienia',
+            'details' => [
+                'user_id' => $request->user_id,
+                'ksiazka_id' => $request->ksiazka_id
+            ],
         ]);
 
         return back()->with('success', 'Powiadomienie wysłane!');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ksiazka;
+use App\Models\Log;
 use App\Models\Powiadomienie;
 use App\Models\Rezerwacja;
 use Illuminate\Http\Request;
@@ -51,6 +52,14 @@ class RezerwacjaController extends Controller
             'tresc' => 'Zarezerwowano książkę: '.$ksiazka->tytul
         ]);
 
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Rezerwacja książki',
+            'details' => [
+                'ksiazka' => $ksiazka->tytul
+            ],
+        ]);
+
         return back()->with('success', 'Książka zarezerwowana.');
     }
     public function cancel($id)
@@ -62,9 +71,19 @@ class RezerwacjaController extends Controller
         
         $user = $rez->user;
         $ksiazka = $rez->ksiazka;
+
         Powiadomienie::create([
             'user_id' => $user->id,
             'tresc' => 'Anulowano rezerwację książki: '.$ksiazka->tytul
+        ]);
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Anulowanie rezerwacji',
+            'details' => [
+                'ksiazka' => $ksiazka->tytul,
+                'rezerwacja_id' => $rez->id
+            ],
         ]);
 
         return redirect()->back()->with('success', 'Rezerwacja została anulowana');

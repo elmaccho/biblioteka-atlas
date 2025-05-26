@@ -58,9 +58,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/uzytkownicy/{id}/dodaj-wypozyczenie', [AdminPanelController::class, 'addRental'])->name('users.rental');
         Route::post('/uzytkownicy/{id}/dodaj-rezerwacje', [AdminPanelController::class, 'addReservation'])->name('users.reservation');
         
-
+        
         // == POWIADOMIENIA ==
         Route::get('/powiadomienia', [AdminPanelController::class, 'notifications'])->name('notifications.history');
+        
+        
+        // == SYSTEM ==
+        Route::get('/admin_log', [AdminPanelController::class, 'adminlogs'])->name('system.adminlog');
     });
 
     Route::middleware(['auth', 'role:librarian|admin'])->prefix('panel-bibliotekarza')->name('librarian.')->group(function () {
@@ -91,6 +95,7 @@ Route::middleware('auth')->group(function () {
         // == POWIADOMIENIA ==
         Route::get('/notifications/reminder', [LibrarianPanelController::class, 'showReminderForm'])->name('notifications.reminderForm');
         Route::post('/notifications/send', [LibrarianPanelController::class, 'sendReminder'])->name('notifications.sendReminder');
+    
     });
 });
 

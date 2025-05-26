@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Log;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,11 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Edytowano profil',
+        ]);
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\Powiadomienie;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,16 @@ class PowiadomieniaController extends Controller
         $powiadomienie = Powiadomienie::findOrFail($id);
         $powiadomienie->read_at = now();
         $powiadomienie->save();
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Przeczytano powiadomienie',
+            'details' => [
+                'powiadomienie_id' => $powiadomienie->id,
+                'name' => auth()->user()->name,
+                'lastname' => auth()->user()->lastname,
+            ],
+        ]);
 
         return redirect()->back()->with('success', 'Powiadomienie oznaczone jako przeczytane');
     }
