@@ -130,7 +130,7 @@
                         <h2 class="accordion-header">
                             <a href="{{ route('admin.raports') }}" class="link-button p-0 justify-content-start">
                                 <i class="fa-solid fa-file"></i>
-                                <span>Raporty i statystyki</span>
+                                <span>Statystyki</span>
                             </a>
                         </h2>
                     </div>

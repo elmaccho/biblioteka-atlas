@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string("opis");
             $table->foreignId("kategoria_id")->constrained(table: 'kategorie', indexName: "ksiazki_kategoria_id");
             $table->foreignId("autor_id")->constrained(table: 'autorzy', indexName: "ksiazki_autor_id");
-            $table->boolean("is_blocked");
             $table->timestamps();
         });
     }

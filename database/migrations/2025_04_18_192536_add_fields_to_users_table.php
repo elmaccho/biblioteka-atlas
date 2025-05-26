@@ -14,12 +14,6 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string("lastname")->after("name");
-            $table->string("phone_number")->after("lastname")->nullable();
-            $table->string("profile_img_src")->after("phone_number")->nullable();
-            $table->enum("rola", array_column(Role::cases(), 'value'))
-                    ->default(Role::USER->value)
-                    ->after("phone_number");
-            $table->boolean("is_active")->default(1)->after('rola');
         });
     }
 
@@ -29,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['lastname', 'phone_number', 'profile_img_src', 'rola', 'is_active']);
+            $table->dropColumn(['lastname',]);
         });
     }
 };

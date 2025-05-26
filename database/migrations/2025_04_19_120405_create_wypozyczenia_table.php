@@ -18,7 +18,6 @@ return new class extends Migration
             $table->date("borrowed_at");
             $table->date("due_date");
             $table->date("returned_at");
-            $table->boolean("przedluzono");
             $table->timestamps();
         });
     }

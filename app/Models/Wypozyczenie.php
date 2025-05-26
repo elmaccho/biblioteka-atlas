@@ -17,7 +17,6 @@ class Wypozyczenie extends Model
         'borrowed_at',
         'due_date',
         'returned_at',
-        'przedluzono'
     ];
 
     public function user()

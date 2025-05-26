@@ -9,7 +9,7 @@ class WypozyczeniaController extends Controller
 {
     public function index(){
         $user = auth()->user();
-        $wypozyczenia = Wypozyczenie::where('user_id', $user->id)->whereNull('returned_at')->where('przedluzono', false)->get();
+        $wypozyczenia = Wypozyczenie::where('user_id', $user->id)->whereNull('returned_at')->get();
 
         return view('wypozyczenia', compact('user', 'wypozyczenia'));
     }
