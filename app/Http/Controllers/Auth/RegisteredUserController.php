@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
         ]);
 
         Log::create([
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
             'action' => 'Rejestracja',
             'details' => [
                 'name' => $user->name,

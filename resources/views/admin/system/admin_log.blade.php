@@ -19,7 +19,7 @@
             <tbody>
                 @forelse($adminlogs as $log)
                     <tr>
-                        <td>{{ $log->id }}</td>
+                        <td>{{ $loop->index+1 }}</td>
                         <td>{{ $log->user ? $log->user->name . ' ' . $log->user->lastname : 'Brak danych' }}</td>
                         <td>{{ $log->action }}</td>
                         <td>

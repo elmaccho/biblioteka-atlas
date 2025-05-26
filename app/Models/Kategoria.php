@@ -12,6 +12,7 @@ class Kategoria extends Model
     protected $table = 'kategorie';
     protected $fillable = [
         'nazwa',
+        'photo_src'
     ];
 
     public function ksiazki()

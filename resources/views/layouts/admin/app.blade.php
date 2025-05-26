@@ -85,6 +85,29 @@
                         </div>
                     </div>
 
+                    <div class="kategorie-panel mb-2">
+                        <h2 class="accordion-header">
+                            <button class="link-button p-0" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseCategory" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseCategory">
+                                <i class="fa-solid fa-book"></i>
+                                <span>Kategorie</span>
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseCategory" class="accordion-collapse collapse">
+                            <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('admin.category', 'index') }}">
+                                    <span>Wyświetl kategorie</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('admin.category', 'new') }}">
+                                    <span>Dodaj kategorie</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="authors-panel mb-2">
                         <h2 class="accordion-header">
                             <button class="link-button p-0" type="button" data-bs-toggle="collapse"
@@ -97,12 +120,12 @@
                         <div id="panelsStayOpen-collapseAuthor" class="accordion-collapse collapse">
                             <div class="accordion-body d-flex flex-column" style="padding-left: 45px">
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('admin.authors.create') }}">
-                                    <span>Dodaj autora</span>
-                                </a>
-                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
                                     href="{{ route('admin.authors') }}">
                                     <span>Wyświetl autorów</span>
+                                </a>
+                                <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
+                                    href="{{ route('admin.authors.create') }}">
+                                    <span>Dodaj autora</span>
                                 </a>
                             </div>
                         </div>

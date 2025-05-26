@@ -7,7 +7,7 @@
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
+                    <th>#</th>
                     <th>Imię</th>
                     <th>Email</th>
                     <th>Data rejestracji</th>
@@ -17,7 +17,7 @@
             <tbody>
                 @foreach($users as $user)
                     <tr>
-                        <td>{{ $user->id }}</td>
+                        <td>{{ $loop->index+1 }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at->format('Y-m-d') }}</td>

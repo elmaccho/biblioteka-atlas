@@ -43,6 +43,14 @@ Route::middleware('auth')->group(function () {
         Route::delete('/ksiazka/{id}', [AdminPanelController::class, 'destroy'])->name('books.destroy');
 
 
+        // == KATEGORIE ==
+        Route::get('/kategorie/{page?}', [AdminPanelController::class, 'categories'])->name('category');
+        Route::post('/kategoria', [AdminPanelController::class, 'storeCategory'])->name('category.store');
+        Route::get('/kategoria/{id}/edit', [AdminPanelController::class, 'editCategory'])->name('category.edit');
+        Route::put('/kategoria/{id}', [AdminPanelController::class, 'updateCategory'])->name('category.update');
+        Route::delete('/kategoria/{id}', [AdminPanelController::class, 'destroyCategory'])->name('category.destroy');
+
+
         // == AUTORZY ==
         Route::get('/autorzy', [AdminPanelController::class, 'authors'])->name('authors');
         Route::get('/autorzy/nowy', [AdminPanelController::class, 'createAuthor'])->name('authors.create');

@@ -325,6 +325,96 @@ class AdminPanelController extends Controller
         return $this->renderView('notifications', $page, $allowedPages, compact('powiadomienia'));
     }
 
+    // Kategorie
+    public function categories($page = 'index')
+    {
+        $categories = Kategoria::paginate(20);
+        $allowedPages = ['index', 'new', 'edit'];
+        return $this->renderView('categories', $page, $allowedPages, compact('categories'));
+    }
+    public function destroyCategory($id)
+    {
+        $kategoria = Kategoria::findOrFail($id);
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Usunięcie kategorii',
+            'details' => [
+                'kategoria' => $kategoria->nazwa,
+            ],
+        ]);
+        $kategoria->delete();
+
+
+        return redirect()->back()->with('success', 'Kategoria została usunięta.');
+    }
+    public function editCategory($id)
+    {
+        $kategoria = Kategoria::findOrFail($id);
+
+        return view('admin.categories.edit', compact('kategoria'));
+    }
+    public function updateCategory(Request $request, $id)
+    {
+        $kategoria = Kategoria::findOrFail($id);
+
+        $validated = $request->validate([
+            'nazwa' => 'required|string|max:255',
+            'photo_src' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
+        ]);
+
+        if ($request->hasFile('photo_src')) {
+            if ($kategoria->photo_src && Storage::disk('public')->exists($kategoria->photo_src)) {
+                Storage::disk('public')->delete($kategoria->photo_src);
+            }
+
+            $path = $request->file('photo_src')->store('books', 'public');
+            $validated['photo_src'] = $path;
+        }
+
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Edycja kategorii',
+            'details' => [
+                'kategoria' => $kategoria->nazwa,
+            ],
+        ]);
+
+        $kategoria->update($validated);
+
+        return redirect()->route('admin.category', 'index')->with('success', 'Kategoria zaktualizowana.');
+    }
+    public function storeCategory(Request $request)
+    {
+        $validated = $request->validate([
+            'nazwa' => 'required|string|max:255',
+            'photo_src' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
+        ]);
+
+        if (!$request->hasFile('photo_src')) {
+            return redirect()->route('admin.category', 'index')->with('error', 'Obrazek jest wymagany');
+        }
+
+        $file = $request->file('photo_src');
+        $fileName = uniqid() . '_' . $file->getClientOriginalName();
+        $file->storeAs('categories', $fileName, 'public');
+
+        $validated['photo_src'] = $fileName;
+
+        Kategoria::create($validated);
+
+        Log::create([
+            'user_id' => auth()->id(),
+            'action' => 'Dodanie kategorii',
+            'details' => [
+                'kategoria' => $validated['nazwa'],
+                'obrazek' => $validated['photo_src'],
+            ],
+        ]);
+
+        return redirect()->route('admin.category', 'index')->with('success', 'Dodano nową kategorię!');
+    }
+
 
     // System
     public function adminlogs()

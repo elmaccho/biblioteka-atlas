@@ -50,7 +50,7 @@
             <table class="table table-bordered table-hover mt-3">
                 <thead class="table-dark">
                     <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>Użytkownik</th>
                         <th>Książka ID</th>
                         <th>Data wypożyczenia</th>
@@ -60,7 +60,7 @@
                 <tbody>
                     @foreach ($wypozyczenia as $wypozyczenie)
                         <tr>
-                            <td>{{ $wypozyczenie->id }}</td>
+                            <td>{{ $loop->index+1 }}</td>
                             <td>{{ $wypozyczenie->user->name ?? 'Brak danych' }} (ID: {{ $wypozyczenie->user_id }})</td>
                             <td>{{ $wypozyczenie->ksiazka_id }}</td>
                             <td>{{ $wypozyczenie->borrowed_at ? \Carbon\Carbon::parse($wypozyczenie->borrowed_at)->format('d.m.Y') : '-' }}</td>

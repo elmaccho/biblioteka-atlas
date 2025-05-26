@@ -10,7 +10,7 @@
             <table class="table table-bordered table-hover align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>Tytuł</th>
                         <th>Opis</th>
                         <th>Ilość</th>
@@ -25,7 +25,7 @@
                 <tbody>
                     @forelse($ksiazki as $ksiazka)
                         <tr>
-                            <td>{{ $ksiazka->id }}</td>
+                            <td>{{ $loop->index+1 }}</td>
                             <td>{{ $ksiazka->tytul }}</td>
                             <td>{{ Str::limit($ksiazka->opis, 50) }}</td>
                             <td>{{ $ksiazka->amount }}</td>
