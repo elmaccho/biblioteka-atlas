@@ -65,6 +65,10 @@ Route::middleware('auth')->group(function () {
         
         // == SYSTEM ==
         Route::get('/admin_log', [AdminPanelController::class, 'adminlogs'])->name('system.adminlog');
+
+
+        // == RAPORTY I STATYSTYKI ==
+        Route::get('/raporty_i_statystyki', [AdminPanelController::class, 'raports'])->name('raports');
     });
 
     Route::middleware(['auth', 'role:librarian|admin'])->prefix('panel-bibliotekarza')->name('librarian.')->group(function () {

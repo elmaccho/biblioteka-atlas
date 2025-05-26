@@ -7,6 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    {{-- ApexCharts --}}
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -125,7 +128,7 @@
 
                     <div class="raportyistats-panel mb-2">
                         <h2 class="accordion-header">
-                            <a href="#" class="link-button p-0 justify-content-start">
+                            <a href="{{ route('admin.raports') }}" class="link-button p-0 justify-content-start">
                                 <i class="fa-solid fa-file"></i>
                                 <span>Raporty i statystyki</span>
                             </a>

@@ -11,7 +11,9 @@ use App\Models\Powiadomienie;
 use App\Models\Rezerwacja;
 use App\Models\User;
 use App\Models\Wypozyczenie;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class AdminPanelController extends Controller
@@ -324,12 +326,92 @@ class AdminPanelController extends Controller
     }
 
 
-
     // System
     public function adminlogs()
     {
         $adminlogs = Log::orderBy('created_at', 'desc')->paginate(30);
-    
+
         return view('admin.system.admin_log', compact('adminlogs'));
+    }
+
+    // Raporty i statystyki
+    public function raports()
+    {
+        $dailyRentals = Wypozyczenie::select(
+            DB::raw('DATE(borrowed_at) as date'),
+            DB::raw('count(*) as count')
+        )
+            ->where('borrowed_at', '>=', Carbon::now()->subDays(7))
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        $weeklyRentals = Wypozyczenie::select(
+            DB::raw('YEAR(borrowed_at) as year'),
+            DB::raw('WEEK(borrowed_at) as week'),
+            DB::raw('count(*) as count')
+        )
+            ->where('borrowed_at', '>=', Carbon::now()->subWeeks(4))
+            ->groupBy('year', 'week')
+            ->orderBy('year')
+            ->orderBy('week')
+            ->get();
+
+        $monthlyRentals = Wypozyczenie::select(
+            DB::raw('YEAR(borrowed_at) as year'),
+            DB::raw('MONTH(borrowed_at) as month'),
+            DB::raw('count(*) as count')
+        )
+            ->where('borrowed_at', '>=', Carbon::now()->subMonths(6))
+            ->groupBy('year', 'month')
+            ->orderBy('year')
+            ->orderBy('month')
+            ->get();
+
+        $topBooks = Wypozyczenie::select('ksiazka_id', DB::raw('count(*) as count'))
+            ->groupBy('ksiazka_id')
+            ->orderByDesc('count')
+            ->limit(5)
+            ->with('ksiazka')
+            ->get();
+
+        $reservationStats = [
+            'active' => Rezerwacja::whereNull('cancelled_at')->where('zrealizowano', false)->count(),
+            'cancelled' => Rezerwacja::whereNotNull('cancelled_at')->count(),
+            'realized' => Rezerwacja::where('zrealizowano', true)->count(),
+        ];
+
+        $topUsers = Wypozyczenie::select('user_id', DB::raw('count(*) as count'))
+            ->groupBy('user_id')
+            ->orderByDesc('count')
+            ->limit(5)
+            ->with('user')
+            ->get();
+
+        $topCategoriesRaw = Wypozyczenie::select('ksiazki.kategoria_id', DB::raw('count(*) as count'))
+            ->join('ksiazki', 'wypozyczenia.ksiazka_id', '=', 'ksiazki.id')
+            ->groupBy('ksiazki.kategoria_id')
+            ->orderByDesc('count')
+            ->limit(5)
+            ->get();
+
+        $categoryIds = $topCategoriesRaw->pluck('kategoria_id');
+
+        $categories = Kategoria::whereIn('id', $categoryIds)->get()->keyBy('id');
+
+        $topCategories = $topCategoriesRaw->map(function ($item) use ($categories) {
+            $item->nazwa = $categories[$item->kategoria_id]->nazwa ?? 'Brak nazwy';
+            return $item;
+        });
+
+        return view('admin.reports.index', compact(
+            'dailyRentals',
+            'weeklyRentals',
+            'monthlyRentals',
+            'topBooks',
+            'reservationStats',
+            'topCategories',
+            'topUsers'
+        ));
     }
 }

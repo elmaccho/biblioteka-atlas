@@ -1,0 +1,8 @@
+.charts-wrapper{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.rents-wrapper, .circle-charts-wrapper{
+    width: 500px;
+}
