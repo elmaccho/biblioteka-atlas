@@ -311,7 +311,7 @@ class LibrarianPanelController extends Controller
         $rez = Rezerwacja::create([
             'user_id' => $id,
             'ksiazka_id' => $validated['ksiazka_id'],
-            'created_at' => now(),
+            'reserved_at' => now(),
             'zrealizowano' => false,
         ]);
 

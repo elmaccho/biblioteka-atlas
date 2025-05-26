@@ -78,6 +78,9 @@ Route::middleware('auth')->group(function () {
 
         // == RAPORTY I STATYSTYKI ==
         Route::get('/raporty_i_statystyki', [AdminPanelController::class, 'raports'])->name('raports');
+        Route::get('/raport_aktywnosci', [AdminPanelController::class, 'raportaktywnosci'])->name('raportaktywnosci');
+        Route::get('/generuj_raport_pdf', [AdminPanelController::class, 'generujraport'])->name('generujraport');
+
     });
 
     Route::middleware(['auth', 'role:librarian|admin'])->prefix('panel-bibliotekarza')->name('librarian.')->group(function () {

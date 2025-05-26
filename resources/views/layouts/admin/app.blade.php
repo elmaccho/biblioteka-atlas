@@ -174,7 +174,7 @@
                                     <span>Wyświetl użytkowników</span>
                                 </a>
                                 <a style="color: #BDC3C7;" class="mb-2 text-decoration-none"
-                                    href="{{ route('admin.users', 'activity_report') }}">
+                                    href="{{ route('admin.raportaktywnosci') }}">
                                     <span>Generuj raport aktywności</span>
                                 </a>
                             </div>

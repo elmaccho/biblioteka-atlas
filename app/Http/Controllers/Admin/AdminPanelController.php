@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminPanelController extends Controller
 {
@@ -294,7 +295,7 @@ class AdminPanelController extends Controller
         $rez = Rezerwacja::create([
             'user_id' => $id,
             'ksiazka_id' => $validated['ksiazka_id'],
-            'created_at' => now(),
+            'reserved_at' => now(),
             'zrealizowano' => false,
         ]);
 
@@ -513,5 +514,58 @@ class AdminPanelController extends Controller
             'topCategories',
             'topUsers'
         ));
+    }
+
+    public function raportaktywnosci()
+    {
+        $users = User::all();
+        return view('admin.users.activity_report', compact('users'));
+    }
+    public function generujraport(Request $request)
+    {
+        $id = $request->input('user_id');
+
+        $user = User::findOrFail($id);
+
+        // Rezerwacje z relacją ksiazka
+        $rezerwacjeZrealizowane = Rezerwacja::with('ksiazka')
+            ->where('user_id', $id)
+            ->where('zrealizowano', 1)
+            ->get();
+
+        $rezerwacjeAnulowane = Rezerwacja::with('ksiazka')
+            ->where('user_id', $id)
+            ->whereNotNull('cancelled_at')
+            ->get();
+
+        $rezerwacjeAktywne = Rezerwacja::with('ksiazka')
+            ->where('user_id', $id)
+            ->where('zrealizowano', 0)
+            ->whereNull('cancelled_at')
+            ->get();
+
+        // Wypożyczenia z relacją ksiazka
+        $wypozyczeniaZrealizowane = Wypozyczenie::with('ksiazka')
+            ->where('user_id', $id)
+            ->whereNotNull('returned_at')
+            ->get();
+
+        $wypozyczeniaAktywne = Wypozyczenie::with('ksiazka')
+            ->where('user_id', $id)
+            ->whereNull('returned_at')
+            ->get();
+
+        $data = compact(
+            'user',
+            'rezerwacjeZrealizowane',
+            'rezerwacjeAnulowane',
+            'rezerwacjeAktywne',
+            'wypozyczeniaZrealizowane',
+            'wypozyczeniaAktywne'
+        );
+
+        $pdf = PDF::loadView('admin.users.user_report_pdf', $data);
+
+        return $pdf->download("raport_uzytkownika_{$user->id}.pdf");
     }
 }
