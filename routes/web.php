@@ -65,7 +65,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/uzytkownicy/{id}/profil', [AdminPanelController::class, 'userProfile'])->name('users.profile');
         Route::post('/uzytkownicy/{id}/dodaj-wypozyczenie', [AdminPanelController::class, 'addRental'])->name('users.rental');
         Route::post('/uzytkownicy/{id}/dodaj-rezerwacje', [AdminPanelController::class, 'addReservation'])->name('users.reservation');
-        
+        Route::patch('/uzytkownicy/users/{user}/role', [AdminPanelController::class, 'updateRole'])->name('users.updateRole');
+
         
         // == POWIADOMIENIA ==
         Route::get('/powiadomienia', [AdminPanelController::class, 'notifications'])->name('notifications.history');

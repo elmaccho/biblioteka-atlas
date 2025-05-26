@@ -233,6 +233,16 @@ class AdminPanelController extends Controller
             'rezerwacjeAnulowane'
         ));
     }
+    public function updateRole(Request $request, User $user)
+    {
+        $request->validate([
+            'role' => 'required|string|exists:roles,name',
+        ]);
+
+        $user->syncRoles([$request->role]);
+
+        return redirect()->back()->with('success', 'Rola została zmieniona!');
+    }
     // Dodanie wypożyczenia dla użytkownika
     public function addRental(Request $request, $id)
     {

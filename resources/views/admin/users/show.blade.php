@@ -6,6 +6,25 @@
 
         <p><strong>Email:</strong> {{ $user->email }}</p>
 
+        <h4 class="mb-4">Zmień rolę użytkownika</h4>
+        <form method="POST" action="{{ route('admin.users.updateRole', $user->id) }}">
+            @csrf
+            @method('PATCH')
+
+            <div class="form-group">
+                <label for="role">Rola</label>
+                <select name="role" class="form-control" required>
+                    @foreach(['user', 'librarian', 'admin'] as $rola)
+                        <option value="{{ $rola }}" {{ $user->hasRole($rola) ? 'selected' : '' }}>
+                            {{ ucfirst($rola) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-2">Zmień rolę</button>
+        </form>
+
         <h4 class="mt-5">Dodaj wypożyczenie</h4>
         <form method="POST" action="{{ route('admin.users.rental', $user->id) }}">
             @csrf
@@ -67,8 +86,7 @@
                             <td>{{ optional($wypo->user)->name . ' ' . optional($wypo->user)->lastname ?? 'Brak danych' }}</td>
                             <td><span class="badge bg-success">Aktywne</span></td>
                             <td>
-                                <form action="{{ route('admin.wypozyczenie.return', $wypo->id) }}" method="POST"
-                                    class="d-inline">
+                                <form action="{{ route('admin.wypozyczenie.return', $wypo->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit" class="btn btn-sm btn-primary">Dodaj zwrot</button>
