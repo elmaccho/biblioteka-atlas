@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('wypozyczenia', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained(table: "users", indexName: "wypozyczenia_users_id");
-            $table->foreignId("copy_id")->constrained(table: "egzemplarze", indexName: "wypozyczenia_egzemplarze_id");
             $table->date("borrowed_at");
             $table->date("due_date");
             $table->date("returned_at");
