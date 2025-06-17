@@ -12,3 +12,24 @@
   LARAVEL v11.11.1  plugin v1.3.0
 
   ➜  APP_URL: http://localhost
+22:33:30 [vite] full reload resources/views/components/book-card.blade.php
+22:37:47 [vite] full reload resources/views/components/book-card.blade.php
+22:44:27 [vite] full reload resources/views/book.blade.php
+22:56:19 [vite] .env changed, restarting server...
+22:56:19 [vite] server restarted.
+
+  LARAVEL v11.11.1  plugin v1.3.0
+
+  ➜  APP_URL: http://localhost
+22:57:58 [vite] .env changed, restarting server...
+22:57:58 [vite] server restarted.
+
+  LARAVEL v11.11.1  plugin v1.3.0
+
+  ➜  APP_URL: http://localhost
+22:58:22 [vite] .env changed, restarting server...
+22:58:22 [vite] server restarted.
+
+  LARAVEL v11.11.1  plugin v1.3.0
+
+  ➜  APP_URL: http://localhost

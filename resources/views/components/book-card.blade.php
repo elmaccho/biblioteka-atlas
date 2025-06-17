@@ -1,6 +1,6 @@
 <div class="book-card">
     <div class="book-image">
-        @if ($ksiazka->img_src)
+        @if ($ksiazka->imgExists)
             <img src="{{ asset('storage/' . $ksiazka->img_src) }}" alt="okładka" width="50">
         @else
             <img src="{{ asset('storage/books/placeholderimage.png') }}" alt="okładka" width="50">

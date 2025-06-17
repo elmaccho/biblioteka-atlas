@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId("user_id")->constrained(table: "users", indexName: "rezerwacje_user_id");
             $table->foreignId("ksiazka_id")->constrained(table: "ksiazki", indexName: "rezerwacje_ksiazki_id");
             $table->date("reserved_at");
-            $table->date("cancelled_at");
+            $table->date("cancelled_at")->nullable();
             $table->boolean("zrealizowano");
             $table->timestamps();
         });

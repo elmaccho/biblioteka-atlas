@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\User;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class RolesAndPermissionsSeeder extends Seeder
     {
         // Resetuje cache permisji
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        $user = User::find(1);
 
         // Tworzenie permisji
         Permission::firstOrCreate(['name' => 'access admin panel']);
@@ -24,5 +27,13 @@ class RolesAndPermissionsSeeder extends Seeder
         // Przypisywanie permisji do ról
         $adminRole->givePermissionTo('access admin panel');
         $librarianRole->givePermissionTo('access librarian panel');
+
+        if ($user) {
+            // Przypisz rolę admin
+            $user->assignRole($adminRole);
+            $this->command->info('Admin role assigned to user ID 1.');
+        } else {
+            $this->command->error('User with ID 1 not found.');
+        }
     }
 }
