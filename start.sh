@@ -7,7 +7,8 @@ done
 
 
 echo "Instalowanie zaleznosci composera..."
-composer install --no-interaction --prefer-dist --optimize-autoloader
+composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-scripts --no-progress
+
 
 echo "Wykonywanie migracji"
 php artisan migrate
