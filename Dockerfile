@@ -20,13 +20,16 @@ WORKDIR /var/www/html
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer install
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-scripts --no-progress
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends default-mysql-client && \
+    docker-php-ext-install pdo_mysql && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y default-mysql-client \
-    && docker-php-ext-install pdo_mysql
 
 
 COPY start.sh /start.sh
